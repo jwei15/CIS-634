@@ -1,0 +1,397 @@
+%% ---------------------------------------------------
+%% Notice that we use the "report" class instead of "article"
+%% ---------------------------------------------------
+\documentclass{report}
+
+\title{Project 6}
+\author{\textbf{Jinhao Wei}}
+\date{\textbf{27 February 2019}}
+
+%% ---------------------------------------------------
+%% CSBDformat specifies the format of our reports
+%% ---------------------------------------------------
+\usepackage{634format}
+
+%% ---------------------------------------------------
+%% enumerate 
+%% ---------------------------------------------------
+\usepackage{enumerate}
+
+%% ---------------------------------------------------
+%% listings is used for including our source code in reports
+%% ---------------------------------------------------
+\usepackage{listings}
+\usepackage{textcomp}
+
+%% ---------------------------------------------------
+%% Packages for math environments
+%% ---------------------------------------------------
+\usepackage{amsmath}
+
+%% ---------------------------------------------------
+%% Packages for URLs and hotlinks in the table of contents
+%% and symbolic cross references using \ref
+%% ---------------------------------------------------
+\usepackage{hyperref}
+
+%% ---------------------------------------------------
+%% Packages for using HOL-generated macros and displays
+%% ---------------------------------------------------
+\usepackage{holtex}
+\usepackage{holtexbasic}
+\input{commands}
+
+\begin{document}
+
+
+\input{../HOL/HOLReports/HOLexerciseNine}
+\input{../HOL/HOLReports/HOLexerciseOneZero}
+
+%% --------------------------------------------------- the listings
+%% parameter "language" is set to "ML"
+%% ---------------------------------------------------
+\lstset{language=ML,breaklines}
+
+
+\maketitle{}
+
+\begin{abstract}
+  This report is a summary on my solutions of problem \emph{9.5.1}, \emph{9.5.2}, \emph{9.5.3}, \emph{10.4.1}, \emph{10.4.2} and \emph{10.4.3}. In these problems, we used \emph{HOL} to prove theorems and used \emph{EmitTex} to do pretty prints. Our works are contained in two folders respectively named \emph{LaTeX} and \emph{HOL}. In folder \emph{LaTeX}, we provided files that are used to produce this project report. In folder \emph{HOL}, we put all the proofs into two seperate files named \emph{exercise9Script.sml} and \emph{exercise10Script.sml}. We also used some other helper files to generate HOL reports named \emph{exercise9Report.pdf} and \emph{exercise10Report.pdf}. 
+\end{abstract}
+
+\begin{acknowledgments}
+  This project follows the format and structure of \emph{sampleTheory} provided by Professor Shiu-Kai Chin. To make it more accurate, this project mostly followed the format of my last project, which is project 5, and project 5 followed the sturcture of Professor Shiu-Kai Chin's \emph{sampleTheory} project. Besides, my friend Yihao Sun helped me in solving problem \emph{10.4.2}. It was by his hint that I realized how this problem should be solved.
+\end{acknowledgments}
+
+\tableofcontents{}
+
+\chapter{Executive Summary}
+\label{cha:executive-summary1}
+
+\textbf{This is a late submission}
+Due to my incompentence on HOL's tactic-based proof techniques, this is a late submission. 
+\\
+
+\textbf{All requirements for this project are satisfied}.  In
+particular, we proved all the theorems in this project, pretty printed the HOL theories,
+and made use of the \emph{EmitTeX} structure to typeset HOL theorems
+in this report.
+
+The following theorems are proved and their corresponding \LaTeX{}
+macros used in this report. 
+\begin{quote}
+  \HOLexerciseNineTheorems
+  \HOLexerciseOneZeroTheorems
+\end{quote}
+
+
+\chapter{Proof of absorptionRule}
+
+
+\section{Problem Statement}
+
+Our task is to prove the theorem \HOLexerciseNineTheoremsabsorptionRule without using \texttt{PROVE_TAC}.
+
+
+\section{HOL Code Proving absorptionRule}
+
+
+\begin{lstlisting}[frame=trBL]
+val absorptionRule =
+TAC_PROOF(
+([], ``!p q.(p ==> q) ==> p ==> (p /\ q)``),
+( REPEAT STRIP_TAC THEN
+  RES_TAC THEN
+  ASM_REWRITE_TAC [])
+);
+
+\end{lstlisting}
+
+\section{Session Transcript}
+\label{sec:session-transcript}
+
+\setcounter{sessioncount}{0}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> # # # # # # val absorptionRule =
+    [] |- !(p :bool) (q :bool). (p ==> q) ==> p ==> p /\ q:
+   thm
+\end{verbatim}
+  \end{scriptsize}
+\end{session}
+
+
+\chapter{Proof of constructiveDilemmaRule}
+\label{cha:proof-prob1theorem}
+
+
+\section{Problem Statement}
+\label{sec:problem-statement}
+Our task is to prove the theorem \HOLexerciseNineTheoremsconstructiveDilemmaRule without using \texttt{PROVE_TAC}.
+
+
+\section{HOL Code Proving constructiveDilemmaRule}
+\label{sec:hol-code-proving}
+
+
+\begin{lstlisting}[frame=trBL]
+val constructiveDilemmaRule =
+TAC_PROOF(
+([], ``!p q r s. (p==>q)/\(r==>s) ==> p\/r ==> q\/s``),
+REPEAT STRIP_TAC THENL
+[(DISJ1_TAC THEN RES_TAC) , (DISJ2_TAC THEN RES_TAC)]
+);
+\end{lstlisting}
+
+\section{Session Transcript}
+\label{sec:session-transcript}
+
+\setcounter{sessioncount}{0}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+
+> # # # # # val constructiveDilemmaRule =
+    []
+|- !(p :bool) (q :bool) (r :bool) (s :bool).
+     (p ==> q) /\ (r ==> s) ==> p \/ r ==> q \/ s:
+   thm
+\end{verbatim}
+  \end{scriptsize}
+\end{session}
+
+
+\chapter{Proof of absorptionRule2}
+
+
+\section{Problem Statement}
+Our task is to prove the theorem \HOLexerciseNineTheoremsabsorptionRuleTwo using \texttt{PROVE_TAC}.
+
+
+\section{HOL Code Proving absorptionRule2}
+
+
+\begin{lstlisting}[frame=trBL]
+val absorptionRule2 =
+TAC_PROOF(([], ``!p q.(p ==> q) ==> p ==> (p /\ q)``),PROVE_TAC[]);
+\end{lstlisting}
+
+\section{Session Transcript}
+\label{sec:session-transcript}
+
+\setcounter{sessioncount}{0}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> # Meson search level: ........
+val absorptionRule2 =
+    [] |- !(p :bool) (q :bool). (p ==> q) ==> p ==> p /\ q:
+   thm
+> 
+\end{verbatim}
+  \end{scriptsize}
+\end{session}
+
+\chapter{Proof of constructiveDilemmaRule2}
+
+\section{Problem Statement}
+
+Our task is to prove the following theorem using \texttt{PROVE_TAC}.
+
+\HOLexerciseNineTheoremsconstructiveDilemmaRuleTwo
+
+
+\section{HOL Code Proving constructiveDilemmaRule2}
+
+\begin{lstlisting}[frame=trBL]
+val constructiveDilemmaRule2 =
+TAC_PROOF(
+([], ``!p q r s. (p==>q)/\(r==>s) ==> p\/r ==> q\/s``),
+PROVE_TAC[]
+);
+\end{lstlisting}
+
+\section{Session Transcript}
+\label{sec:session-transcript-1}
+
+
+\setcounter{sessioncount}{0}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+
+> # # # # Meson search level: ................
+val constructiveDilemmaRule2 =
+    []
+|- !(p :bool) (q :bool) (r :bool) (s :bool).
+     (p ==> q) /\ (r ==> s) ==> p \/ r ==> q \/ s:
+   thm
+> 
+\end{verbatim}
+  \end{scriptsize}
+\end{session}
+
+
+
+\chapter{Proof of problem1_thm}
+
+\section{Problem Statement}
+
+Our task is to prove the following theorem without using \texttt{PROVE_TAC}.
+
+\HOLexerciseOneZeroTheoremsproblemOneXXthm
+
+
+\section{HOL Code Proving problem1_thm}
+
+\begin{lstlisting}[frame=trBL]
+val problem1_thm =
+TAC_PROOF(
+([``!x:'a. P(x)==>M(x)``, ``(P:'a->bool)(s:'a)``], ``(M:'a->bool)(s:'a)``),
+RES_TAC
+);
+\end{lstlisting}
+
+\section{Session Transcript}
+
+
+\setcounter{sessioncount}{0}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+
+> # # # # val problem1_thm =
+   
+[(P :'a -> bool) (s :'a),
+ !(x :'a). (P :'a -> bool) x ==> (M :'a -> bool) x]
+|- (M :'a -> bool) (s :'a):
+   thm
+> 
+\end{verbatim}
+  \end{scriptsize}
+\end{session}
+
+
+\chapter{Proof of problem2_thm}
+
+\section{Problem Statement}
+
+Our task is to prove the following theorem without using \texttt{PROVE_TAC}.
+
+\HOLexerciseOneZeroTheoremsproblemTwoXXthm
+
+
+\section{HOL Code Proving problem1_thm}
+
+\begin{lstlisting}[frame=trBL]
+val problem2_thm =
+TAC_PROOF(
+([``p/\q ==> r``, ``r==>s``, ``~s``], ``p==>~q``),
+REPEAT STRIP_TAC THEN
+REPEAT RES_TAC
+);
+\end{lstlisting}
+
+\section{Session Transcript}
+
+
+\setcounter{sessioncount}{0}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+
+> # # # # # val problem2_thm =
+   
+[~(s :bool), (r :bool) ==> (s :bool),
+ (p :bool) /\ (q :bool) ==> (r :bool)] |- (p :bool) ==> ~(q :bool):
+   thm
+\end{verbatim}
+  \end{scriptsize}
+\end{session}
+
+
+\chapter{Proof of problem3_thm}
+
+\section{Problem Statement}
+
+Our task is to prove the following theorem without using \texttt{PROVE_TAC}.
+
+\HOLexerciseOneZeroTheoremsproblemThreeXXthm
+
+
+\section{HOL Code Proving problem3_thm}
+
+\begin{lstlisting}[frame=trBL]
+val problem3_thm =
+TAC_PROOF(
+([``~(p/\q)``, ``~p ==> r``, ``~q ==> s``],``r\/s``),
+
+PAT_ASSUM ``~(p/\q)`` (fn th => (ASSUME_TAC (REWRITE_RULE [DE_MORGAN_THM] th))) THEN
+
+PAT_ASSUM ``~p\/~q`` (fn th => ASSUME_TAC (REWRITE_RULE [] (DISJ_IMP th))) THEN
+
+ASSUME_TAC(IMP_TRANS(ASSUME ``p==>~q``)(ASSUME ``~q==>s``)) THEN
+
+PAT_ASSUM ``~p==>r`` (fn th => ASSUME_TAC (REWRITE_RULE [] (DISJ_IMP (ONCE_REWRITE_RULE [DISJ_SYM] (IMP_ELIM th))))) THEN
+
+ASSUME_TAC(IMP_TRANS(ASSUME ``~r==>p``)(ASSUME ``p==>s``)) THEN
+
+ASSUME_TAC (REWRITE_RULE [] (IMP_ELIM (ASSUME ``~r==>s``))) THEN
+
+ASM_REWRITE_TAC []
+);
+\end{lstlisting}
+
+\section{Session Transcript}
+
+
+\setcounter{sessioncount}{0}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+
+
+> val problem3_thm =
+   
+[~((p :bool) /\ (q :bool)), ~(p :bool) ==> (r :bool),
+ ~(q :bool) ==> (s :bool)] |- (r :bool) \/ (s :bool):
+   thm
+val it = (): unit
+> 
+\end{verbatim}
+  \end{scriptsize}
+\end{session}
+
+%% ------------------------------------------
+%% Change to letters for appendix
+%% ------------------------------------------
+
+%% ------------------------------------------
+%% this restarts the section numbering
+%% ------------------------------------------
+\appendix{} 
+
+
+%% ------------------------------------------
+% label using capital letters
+%% ------------------------------------------
+\renewcommand{\thechapter}{\Alph{chapter}} 
+
+\chapter{Source Code for exercise9Script}
+\label{cha:source-code-sample}
+
+The following code is from \emph{exercise9Script.sml}, which is located
+in directory "../HOL/" 
+\lstinputlisting{../HOL/exercise9Script.sml}
+
+\chapter{Source Code for exercise10Script}
+\label{cha:source-code-sample}
+
+The following code is from \emph{exercise10Script.sml}, which is located
+in directory "../HOL/"
+\lstinputlisting{../HOL/exercise10Script.sml}
+
+\end{document}

@@ -1,0 +1,31 @@
+\contentsline {chapter}{\numberline {1}Executive Summary}{3}{chapter.1}
+\contentsline {chapter}{\numberline {2}Proof of absorptionRule}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Problem Statement}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}HOL Code Proving absorptionRule}{4}{section.2.2}
+\contentsline {section}{\numberline {2.3}Session Transcript}{4}{section.2.3}
+\contentsline {chapter}{\numberline {3}Proof of constructiveDilemmaRule}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Problem Statement}{5}{section.3.1}
+\contentsline {section}{\numberline {3.2}HOL Code Proving constructiveDilemmaRule}{5}{section.3.2}
+\contentsline {section}{\numberline {3.3}Session Transcript}{5}{section.3.3}
+\contentsline {chapter}{\numberline {4}Proof of absorptionRule2}{6}{chapter.4}
+\contentsline {section}{\numberline {4.1}Problem Statement}{6}{section.4.1}
+\contentsline {section}{\numberline {4.2}HOL Code Proving absorptionRule2}{6}{section.4.2}
+\contentsline {section}{\numberline {4.3}Session Transcript}{6}{section.4.3}
+\contentsline {chapter}{\numberline {5}Proof of constructiveDilemmaRule2}{7}{chapter.5}
+\contentsline {section}{\numberline {5.1}Problem Statement}{7}{section.5.1}
+\contentsline {section}{\numberline {5.2}HOL Code Proving constructiveDilemmaRule2}{7}{section.5.2}
+\contentsline {section}{\numberline {5.3}Session Transcript}{7}{section.5.3}
+\contentsline {chapter}{\numberline {6}Proof of problem1_thm}{8}{chapter.6}
+\contentsline {section}{\numberline {6.1}Problem Statement}{8}{section.6.1}
+\contentsline {section}{\numberline {6.2}HOL Code Proving problem1_thm}{8}{section.6.2}
+\contentsline {section}{\numberline {6.3}Session Transcript}{8}{section.6.3}
+\contentsline {chapter}{\numberline {7}Proof of problem2_thm}{9}{chapter.7}
+\contentsline {section}{\numberline {7.1}Problem Statement}{9}{section.7.1}
+\contentsline {section}{\numberline {7.2}HOL Code Proving problem1_thm}{9}{section.7.2}
+\contentsline {section}{\numberline {7.3}Session Transcript}{9}{section.7.3}
+\contentsline {chapter}{\numberline {8}Proof of problem3_thm}{10}{chapter.8}
+\contentsline {section}{\numberline {8.1}Problem Statement}{10}{section.8.1}
+\contentsline {section}{\numberline {8.2}HOL Code Proving problem3_thm}{10}{section.8.2}
+\contentsline {section}{\numberline {8.3}Session Transcript}{10}{section.8.3}
+\contentsline {chapter}{\numberline {A}Source Code for exercise9Script}{11}{appendix.A}
+\contentsline {chapter}{\numberline {B}Source Code for exercise10Script}{12}{appendix.B}

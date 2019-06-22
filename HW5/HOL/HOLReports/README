@@ -1,0 +1,17 @@
+
+
+(******************************************************************************)
+(*                             How to run                                     *)
+(*                                                                            *)
+(*                                                                            *)
+(******************************************************************************)
+
+To generate a pretty print format of the proofs, remember to run
+   1. Holmake cleanAll
+   2. Holmake
+in folder ~/HW5/HOL, after doing the previous two steps, run
+   1. make clean
+   2. make
+in foler ~/HW5/HOL/HOLReports
+
+After those steps you are good to find a file named AllReports.pdf in ~/HW5/HOL/HOLReports

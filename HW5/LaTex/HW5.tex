@@ -1,0 +1,291 @@
+%% ---------------------------------------------------
+%% Notice that we use the "report" class instead of "article"
+%% ---------------------------------------------------
+\documentclass{report}
+
+\title{Project 5}
+\author{\textbf{Jinhao Wei}}
+\date{\textbf{19 February 2019}}
+
+%% ---------------------------------------------------
+%% CSBDformat specifies the format of our reports
+%% ---------------------------------------------------
+\usepackage{634format}
+
+%% ---------------------------------------------------
+%% enumerate 
+%% ---------------------------------------------------
+\usepackage{enumerate}
+
+%% ---------------------------------------------------
+%% listings is used for including our source code in reports
+%% ---------------------------------------------------
+\usepackage{listings}
+\usepackage{textcomp}
+
+%% ---------------------------------------------------
+%% Packages for math environments
+%% ---------------------------------------------------
+\usepackage{amsmath}
+
+%% ---------------------------------------------------
+%% Packages for URLs and hotlinks in the table of contents
+%% and symbolic cross references using \ref
+%% ---------------------------------------------------
+\usepackage{hyperref}
+
+%% ---------------------------------------------------
+%% Packages for using HOL-generated macros and displays
+%% ---------------------------------------------------
+\usepackage{holtex}
+\usepackage{holtexbasic}
+\input{commands}
+
+\begin{document}
+
+
+\input{../HOL/HOLReports/HOLAll}
+
+%% --------------------------------------------------- the listings
+%% parameter "language" is set to "ML"
+%% ---------------------------------------------------
+\lstset{language=ML}
+
+
+\maketitle{}
+
+\begin{abstract}
+  This report is a summary on my solutions of problem \emph{8.4.1}, \emph{8.4.2} and\emph{8.4.3}. In these problems, we used \emph{HOL} to prove theorems and used \emph{EmitTex} to do pretty prints. Our works are contained in two folders respectively named \emph{LaTeX} and \emph{HOL}. In folder \emph{LaTeX}, we provided files that are used to produce this project report. In folder \emph{HOL}, we put all the proofs into one file named \emph{AllScript.sml} and used some other helper files to generate HOL reports named \emph{AllReport.pdf}. 
+\end{abstract}
+
+\begin{acknowledgments}
+  This project follows the format and structure of \emph{sampleTheory} provided by Professor Shiu-Kai Chin. Specifically, this report is basically a modification on the file \emph{exampleEmitTeXReport.tex}, I merely saturated it up with my works.
+\end{acknowledgments}
+
+\tableofcontents{}
+
+\chapter{Executive Summary}
+\label{cha:executive-summary}
+
+\textbf{All requirements for this project are satisfied}.  In
+particular, we proved all the theorems in this project, pretty printed the HOL theories,
+and made use of the \emph{EmitTeX} structure to typeset HOL theorems
+in this report.
+
+The following theorems are proved and their corresponding \LaTeX{}
+macros used in this report. 
+\begin{quote}
+  \HOLAllTheorems
+\end{quote}
+However, due to my incompentence on pretty print techniques, the theorems' output order is not consistent with the theorems' proof order in the report.  
+
+\chapter{Proof of problem1Thm}
+\label{cha:proof-prob1theorem}
+
+
+\section{Problem Statement}
+\label{sec:problem-statement}
+Our task is to prove the theorem \HOLAllTheoremsproblemOneThm
+
+
+\section{HOL Code Proving problem1Thm}
+\label{sec:hol-code-proving}
+
+
+\begin{lstlisting}[frame=trBL]
+val problem1Thm =
+let
+  val th1 = ASSUME``p:bool``
+  val th2 = ASSUME``(p:bool)==>(q:bool)``
+  val th3 = ASSUME``(q:bool) ==> (r:bool)``
+
+
+  val th4 = MP th2 th1
+  val th5 = IMP_TRANS th2 th3
+
+  val th6 = MP th5 th1
+
+  val th7 = DISCH(last(hyp(th6))) th6
+  val th8 = DISCH(last(hyp(th7))) th7
+in
+  DISCH(last(hyp(th8))) th8
+end;
+
+\end{lstlisting}
+
+\section{Session Transcript}
+\label{sec:session-transcript}
+
+\setcounter{sessioncount}{0}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+
+> > > > # # # # # # # # # ** types trace now on
+> # # # # # # # # # ** Unicode trace now off
+> val problem1Thm =
+let
+  val th1 = ASSUME``p:bool``
+  val th2 = ASSUME``(p:bool)==>(q:bool)``
+  val th3 = ASSUME``(q:bool) ==> (r:bool)``
+
+
+  val th4 = MP th2 th1
+  val th5 = IMP_TRANS th2 th3
+
+  val th6 = MP th5 th1
+
+  val th7 = DISCH(last(hyp(th6))) th6
+  val th8 = DISCH(last(hyp(th7))) th7
+in
+  DISCH(last(hyp(th8))) th8
+end;
+# # # # # # # # # # # # # # # # val problem1Thm =
+   |- (p :bool) ==> (p ==> (q :bool)) ==> (q ==> (r :bool)) ==> r:
+   thm
+> 
+\end{verbatim}
+  \end{scriptsize}
+\end{session}
+
+
+\chapter{Proof of conjSymThm}
+\label{cha:proof-prob1theorem}
+
+
+\section{Problem Statement}
+\label{sec:problem-statement}
+Our task is to prove the theorem \HOLAllTheoremsconjSymThm using \texttt{IMP_ANTISYM_RULE}.
+
+
+\section{HOL Code Proving conjSymThm}
+\label{sec:hol-code-proving}
+
+
+\begin{lstlisting}[frame=trBL]
+val conjSymThm =
+let
+  val tmp1Thm =
+  	  let
+		val thm1 = ASSUME``p/\q``
+   		val thm2 = CONJUNCT1 thm1
+   		val thm3 = CONJUNCT2 thm1
+   		val thm4 = CONJ thm3 thm2
+  	  in
+		DISCH ``p/\q`` thm4
+   	  end;
+  val tmp2Thm =
+      	  let
+		val thm1 = ASSUME``q/\p``
+  		val thm2 = CONJUNCT1 thm1
+  		val thm3 = CONJUNCT2 thm1
+  		val thm4 = CONJ thm3 thm2
+	  in
+		DISCH ``q/\p`` thm4
+          end;	  
+in        
+  IMP_ANTISYM_RULE tmp1Thm tmp2Thm
+end;
+\end{lstlisting}
+
+\section{Session Transcript}
+\label{sec:session-transcript}
+
+\setcounter{sessioncount}{0}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+
+> val conjSymThm =
+let
+  val tmp1Thm =
+  	  let
+		val thm1 = ASSUME``p/\q``
+   		val thm2 = CONJUNCT1 thm1
+   		val thm3 = CONJUNCT2 thm1
+   		val thm4 = CONJ thm3 thm2
+  	  in
+		DISCH ``p/\q`` thm4
+   	  end;
+  val tmp2Thm =
+      	  let
+		val thm1 = ASSUME``q/\p``
+  		val thm2 = CONJUNCT1 thm1
+  		val thm3 = CONJUNCT2 thm1
+  		val thm4 = CONJ thm3 thm2
+	  in
+		DISCH ``q/\p`` thm4
+          end;	  
+in        
+  IMP_ANTISYM_RULE tmp1Thm tmp2Thm
+end;
+# # # # # # # # # # # # # # # # # # # # # # val conjSymThm =
+   |- (p :bool) /\ (q :bool) <=> q /\ p:
+   thm
+\end{verbatim}
+  \end{scriptsize}
+\end{session}
+
+
+
+
+\chapter{Proof of conjSymThmAll}
+\label{cha:proof-demotheorem}
+
+\section{Problem Statement}
+\label{sec:problem-statement-1}
+
+Our task is to prove the following theorem using \texttt{GENL}.
+
+\HOLAllTheoremsconjSymThmAll
+
+
+
+\section{HOL Code Proving conjSymThmAll}
+\label{sec:hol-code-proving-1}
+
+\begin{lstlisting}[frame=trBL]
+val conjSymThmAll = GENL [``p:bool``, ``q:bool``] conjSymThm; 
+\end{lstlisting}
+
+\section{Session Transcript}
+\label{sec:session-transcript-1}
+
+\setcounter{sessioncount}{0}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+
+> val conjSymThmAll = GENL [``p:bool``, ``q:bool``] conjSymThm;
+val conjSymThmAll =
+   |- !(p :bool) (q :bool). p /\ q <=> q /\ p:
+   thm
+\end{verbatim}
+  \end{scriptsize}
+\end{session}
+
+%% ------------------------------------------
+%% Change to letters for appendix
+%% ------------------------------------------
+
+%% ------------------------------------------
+%% this restarts the section numbering
+%% ------------------------------------------
+\appendix{} 
+
+
+%% ------------------------------------------
+% label using capital letters
+%% ------------------------------------------
+\renewcommand{\thechapter}{\Alph{chapter}} 
+
+\chapter{Source Code for example1Script}
+\label{cha:source-code-sample}
+
+The following code is from \emph{AllScript.sml}, which is located
+in a different subdirectory than this file.
+\lstinputlisting{../HOL/AllScript.sml}
+
+
+
+\end{document}
