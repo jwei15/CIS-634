@@ -1,0 +1,24 @@
+\contentsline {chapter}{\numberline {1}Executive Summary}{3}{chapter.1}
+\contentsline {chapter}{\numberline {2}Exercise 16.3.1}{6}{chapter.2}
+\contentsline {section}{\numberline {2.1}Exercise 16.3.1.A}{6}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Relevant Code}{6}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Session Transcript}{7}{subsection.2.1.2}
+\contentsline {section}{\numberline {2.2}Exercise 16.3.1.B}{7}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Relevant Code}{7}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Session Transcript}{7}{subsection.2.2.2}
+\contentsline {section}{\numberline {2.3}Exercise 16.3.1.C}{8}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Relevant Code}{8}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Session Transcript}{9}{subsection.2.3.2}
+\contentsline {chapter}{\numberline {3}Exercise 16.3.2}{11}{chapter.3}
+\contentsline {section}{\numberline {3.1}Exercise 16.3.2.A}{11}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Relevant Code}{11}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Session Transcript}{11}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Exercise 16.3.2.B}{12}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Relevant Code}{12}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Session Transcript}{12}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Exercise 16.3.2.C}{13}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Relevant Code}{13}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Session Transcript}{14}{subsection.3.3.2}
+\contentsline {chapter}{\numberline {A}Source Code for smScript.sml}{16}{appendix.A}
+\contentsline {chapter}{\numberline {B}Source Code for m1Script.sml}{22}{appendix.B}
+\contentsline {chapter}{\numberline {C}Source Code for counterScript.sml}{24}{appendix.C}

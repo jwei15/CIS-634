@@ -1,0 +1,18 @@
+\begin{theindex}
+
+  \item \textbf  {counter Theory}, 3
+    \subitem Datatypes, 3
+    \subitem Theorems, 3
+      \subsubitem ctr_rules, 3
+      \subsubitem ctrcmd_distinct_clauses, 3
+      \subsubitem ctrNS_def, 3
+      \subsubitem ctrNS_ind, 3
+      \subsubitem ctrOut_def, 3
+      \subsubitem ctrOut_ind, 4
+      \subsubitem ctrOut_one_one, 4
+      \subsubitem ctrState_one_one, 4
+      \subsubitem ctrTR_clauses, 4
+      \subsubitem ctrTR_rules, 4
+      \subsubitem ctrTrans_Equiv_TR, 4
+
+\end{theindex}

@@ -1,0 +1,43 @@
+\documentclass[11pt, twoside]{article}
+\usepackage{holtex}
+
+\makeindex
+
+\begin{document}
+
+\input{HOLsm}
+
+\tableofcontents
+\cleardoublepage
+\HOLpagestyle
+
+% ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+\section{sm Theory}
+\index{sm Theory@\textbf  {sm Theory}}
+\begin{flushleft}
+\textbf{Built:} \HOLsmDate \\[2pt]
+\textbf{Parent Theories:} indexedLists, patternMatches
+\end{flushleft}
+% ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+\subsection{Datatypes}
+\index{sm Theory@\textbf  {sm Theory}!Datatypes}
+% .....................................
+
+\HOLsmDatatypes
+
+\subsection{Definitions}
+\index{sm Theory@\textbf  {sm Theory}!Definitions}
+% .....................................
+
+\HOLsmDefinitions
+
+\subsection{Theorems}
+\index{sm Theory@\textbf  {sm Theory}!Theorems}
+% .....................................
+
+\HOLsmTheorems
+
+\HOLindex
+
+\end{document}

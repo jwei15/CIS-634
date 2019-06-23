@@ -1,0 +1,719 @@
+%% ---------------------------------------------------
+%% Notice that we use the "report" class instead of "article"
+%% ---------------------------------------------------
+\documentclass{report}
+
+\title{Project 10}
+\author{\textbf{Jinhao Wei}}
+\date{\textbf{2 April 2019}}
+
+%% ---------------------------------------------------
+%% CSBDformat specifies the format of our reports
+%% ---------------------------------------------------
+\usepackage{634format}
+
+%% ---------------------------------------------------
+%% enumerate 
+%% ---------------------------------------------------
+\usepackage{enumerate}
+
+%% ---------------------------------------------------
+%% listings is used for including our source code in reports
+%% ---------------------------------------------------
+\usepackage{listings}
+\usepackage{textcomp}
+
+%% ---------------------------------------------------
+%% Packages for math environments
+%% ---------------------------------------------------
+\usepackage{amsmath}
+
+%% ---------------------------------------------------
+%% Packages for URLs and hotlinks in the table of contents
+%% and symbolic cross references using \ref
+%% ---------------------------------------------------
+\usepackage{hyperref}
+
+%% ---------------------------------------------------
+%% Packages for using HOL-generated macros and displays
+%% ---------------------------------------------------
+\usepackage{holtex}
+\usepackage{holtexbasic}
+\input{commands}
+
+\begin{document}
+
+
+\input{../HOL/sm/HOLReports/HOLsm}
+\input{../HOL/M1/HOLReports/HOLmOne}
+\input{../HOL/Counter/HOLReports/HOLcounter}
+
+%% --------------------------------------------------- the listings
+%% parameter "language" is set to "ML"
+%% ---------------------------------------------------
+\lstset{language=ML,breaklines}
+
+
+\maketitle{}
+
+\begin{abstract}
+  This report is basically a summary on my attempts on Project 10, which includes definitions propoties and theorems on several types of state machines. This report provides my solutions on \emph{16.3.1} and \emph{16.3.2}. In addition, I had pretty-printed the corresponding datatypes and proofs and put the reports in the corresponding folders \emph{/HOL/M1/HOLReports/} and \emph{/HOL/Counter/HOLReports/}
+\end{abstract}
+
+\begin{acknowledgments}
+  This project follows the format and structure of \emph{sampleTheory} provided by Professor Shiu-Kai Chin. To make it more accurate, this project mostly followed the format of one of my previous projects, which is project 5, and project 5 followed the sturcture of Professor Shiu-Kai Chin's \emph{sampleTheory} project. Besides, this project relies on \emph{/HOL/sm/smScript.sml} and \emph{/HOL/sminfRules.sml}, which are also provided by Professor Shiu-Kai Chin.
+\end{acknowledgments}
+
+\tableofcontents{}
+
+
+\chapter{Executive Summary}
+\label{cha:executive-summary}
+
+\textbf{All requirements for this project are satisfied}.  In
+particular, we defined all the datatypes and proved all the theorems in this project, pretty printed the HOL theories,
+and made use of the \emph{EmitTeX} structure to typeset HOL theorems
+in this report.
+
+For question \emph{16.3.1}, we introduced the following datatypes 
+\begin{quote}
+\HOLmOneDatatypes
+\end{quote}
+
+and gave proofs on the following theorems or propoties:
+\begin{quote}
+  \HOLmOneTheorems
+\end{quote}
+
+For question \emph{16.3.2}, we introduced the following datatypes
+\begin{quote}
+\HOLcounterDatatypes
+\end{quote}
+
+and proved the following theorems or propoties:
+\begin{quote}
+\HOLcounterTheorems
+\end{quote}
+
+
+
+\begin{description}
+\item [Reproducibility in ML and \LaTeX]\ \\
+All ML and \LaTeX{} source files compile well on the environment provided by this course. Please use the \emph{Makefile} provided in subdirectory \emph{/HOL/} by typing command \emph{make} or \emph{make clean}.
+\end{description}
+
+
+\chapter{Exercise 16.3.1}
+\label{cha:e1161}
+
+In this exercise, we will define a state machine named \emph{M1} and provide the corresponding datatypes, definitions or proofs:
+
+
+Before we go through the following sections, we will need to enter the folder \emph{/M1/} and open up a new HOL session, then we will run
+\begin{lstlisting}[frame=trBL]
+app load ["../sm/smTheory", "../sminfRules"];
+
+open HolKernel Parse boolLib bossLib;
+open TypeBase;
+
+open sminfRules smTheory;
+\end{lstlisting}
+to make sure that all the following codes run.
+\section{Exercise 16.3.1.A}
+\label{sec:e1161definition}
+
+In this section, we will provide several datatypes and their properties.
+
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+We will need to define three datatypes for our state machine \emph{M1}, which are respectively \emph{command}, \emph{state} and \emph{output}. 
+
+\begin{lstlisting}[frame=trBL]
+val _ =
+Datatype
+`command = i0 | i1`;
+
+val _ =
+Datatype `state = S0 | S1 | S2`;
+
+val _ =
+Datatype `output = o0 | o1`;
+\end{lstlisting}
+
+Also, we will need to prove the properties for these datatypes
+
+\begin{lstlisting}[frame=trBL]
+val command_distinct_clauses = distinct_of ``:command``;
+val _ = save_thm ("command_distinct_clauses", command_distinct_clauses);
+
+val state_distinct_clauses = distinct_of ``:state``;
+val _ = save_thm("state_distinct_clauses", state_distinct_clauses);
+
+val output_distinct_clauses = distinct_of ``:output``;
+val _ = save_thm("output_distinct_clauses", output_distinct_clauses);
+\end{lstlisting}
+
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send the first code snippet that defined the datatypes to HOL session, we will see transcript as below:
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> # # # <<HOL message: Defined type: "command">>
+> > # <<HOL message: Defined type: "state">>
+> > # <<HOL message: Defined type: "output">>
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+Then we will send the second code snippet, which shows the properties of the datatypes, to the HOL session, we will see transcript as below (if we set the printing switches "unicode" off and "show types" on):
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+
+> # val command_distinct_clauses =
+   |- i0 <> i1:
+   thm
+> > > val state_distinct_clauses =
+   |- S0 <> S1 /\ S0 <> S2 /\ S1 <> S2:
+   thm
+> > > val output_distinct_clauses =
+   |- o0 <> o1:
+   thm
+> > 
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\section{Exercise 16.3.1.B}
+
+In this section, we will provide our definition of next state function \emph{M1ns_def} and output function \emph{M1out_def}, for our state machine \emph{M1} 
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+We will use the following code to define our next state function \emph{M1ns_def} and output function \emph{M1out_def}.
+
+\begin{lstlisting}[frame=trBL]
+val M1ns_def =
+Define `(M1ns S0 i0 = S1) /\
+(M1ns (S0: state) (i1: command) = (S2: state)) /\
+(M1ns (S1: state) (i0: command) = (S0:state)) /\
+(M1ns (S1: state) (i1: command) = (S0: state)) /\
+(M1ns (S2: state) (i0: command)= (S2: state)) /\
+(M1ns (S2: state) (i1: command) = (S2: state))`;
+
+
+val M1out_def =
+Define `(M1out S0 i0 = o0)/\(M1out S0 i1 = o1)/\(M1out S1 i0 = o0)/\(M1out S1 i1 = o0)/\(M1out S2 i0 = o1)/\(M1out S2 i1 = o1)`;
+\end{lstlisting}
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send the above code to HOL, we will see the transcript as below(if we keep the "unicode" off and "show types" on):
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> # # # # # # # <<HOL warning: GrammarDeltas.revise_data: 
+  Grammar-deltas:
+    overload_on("M1ns_tupled")
+  invalidated by DelConstant(scratch$M1ns_tupled)>>
+Equations stored under "M1ns_def".
+Induction stored under "M1ns_ind".
+val M1ns_def =
+   |- (M1ns S0 i0 = S1) /\ (M1ns S0 i1 = S2) /\ (M1ns S1 i0 = S0) /\
+   (M1ns S1 i1 = S0) /\ (M1ns S2 i0 = S2) /\ (M1ns S2 i1 = S2):
+   thm
+> > > # <<HOL warning: GrammarDeltas.revise_data: 
+  Grammar-deltas:
+    overload_on("M1out_tupled")
+  invalidated by DelConstant(scratch$M1out_tupled)>>
+Equations stored under "M1out_def".
+Induction stored under "M1out_ind".
+val M1out_def =
+   |- (M1out S0 i0 = o0) /\ (M1out S0 i1 = o1) /\ (M1out S1 i0 = o0) /\
+   (M1out S1 i1 = o0) /\ (M1out S2 i0 = o1) /\ (M1out S2 i1 = o1):
+   thm
+> 
+*** Emacs/HOL command completed ***
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+The pretty-printed definitions should look like this:
+
+
+\emph{M1ns_def:}
+\begin{quote}
+\HOLmOneTheoremsMOnensXXdef
+\end{quote}
+
+\emph{M1ns_ind:}
+\begin{quote}
+\HOLmOneTheoremsMOnensXXind
+\end{quote}
+
+\emph{M1out_def:}
+\begin{quote}
+\HOLmOneTheoremsMOneoutXXdef
+\end{quote}
+
+\emph{M1out_ind:}
+\begin{quote}
+\HOLmOneTheoremsMOneoutXXind
+\end{quote}
+
+
+
+\section{Exercise 16.3.1.C}
+\label{sec:e1161definition}
+
+In this section, we will prove some theorems for our state machine \emph{M1}. 
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+We used the following code on \emph{m1TR_rules}.
+\begin{lstlisting}[frame=trBL]
+val m1TR_rules = SPEC_TR ``M1ns`` ``M1out``;
+val _ = save_thm("m1TR_rules", m1TR_rules);
+\end{lstlisting}
+
+As for \emph{m1TR_clauses}, we have
+\begin{lstlisting}[frame=trBL]
+val m1TR_clauses = SPEC_TR_clauses ``M1ns`` ``M1out``;
+val _ = save_thm("m1TR_clauses", m1TR_clauses);
+\end{lstlisting}
+
+We will use the following code to prove \emph{m1Trans_Equiv_TR}
+\begin{lstlisting}[frame=trBL]
+val m1Trans_Equiv_TR = SPEC_Trans_Equiv_TR ``M1ns`` ``M1out``;
+val _ = save_thm("m1Trans_Equiv_TR", m1Trans_Equiv_TR);
+\end{lstlisting}
+
+We can prove \emph{m1_rules} with the following code
+\begin{lstlisting}[frame=trBL]
+val th1 =
+REWRITE_RULE
+[M1ns_def, M1out_def]
+(SPECL[``S0``, ``i0``] m1TR_rules);
+
+val th2 =
+REWRITE_RULE
+[M1ns_def, M1out_def]
+(SPECL [``S0``, ``i1``] m1TR_rules);
+
+val th3 =
+REWRITE_RULE
+[M1ns_def, M1out_def]
+(SPECL [``S1``, ``i0``] m1TR_rules);
+
+val th4 =
+REWRITE_RULE
+[M1ns_def, M1out_def]
+(SPECL [``S1``, ``i1``] m1TR_rules);
+
+val th5 =
+REWRITE_RULE
+[M1ns_def, M1out_def]
+(SPECL [``S2``, ``i0``] m1TR_rules);
+
+val th6 =
+REWRITE_RULE
+[M1ns_def, M1out_def]
+(SPECL [``S2``, ``i1``] m1TR_rules);
+
+
+val m1_rules = LIST_CONJ[th1, th2, th3, th4, th5, th6];
+val _ = save_thm("m1_rules", m1_rules);
+\end{lstlisting}
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send all the codes above to HOL, we will see the transcript as below (still, "unicode" is off and "show types" is on):
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> val m1TR_rules =
+   |- !(s :state) (x :command) (ins :command list) (outs :output list).
+     TR x (CFG (x::ins) s outs) (CFG ins (M1ns s x) (M1out s x::outs)):
+   thm
+val m1TR_clauses =
+   |- (!(x :'input) (x1s :'input list) (s1 :'state) (out1s :'output list)
+       (x2s :'input list) (out2s :'output list) (s2 :'state).
+      TR x (CFG x1s s1 out1s) (CFG x2s s2 out2s) <=>
+      ?(NS :'state -> 'input -> 'state)
+         (Out :'state -> 'input -> 'output) (ins :'input list).
+        (x1s = x::ins) /\ (x2s = ins) /\ (s2 = NS s1 x) /\
+        (out2s = Out s1 x::out1s)) /\
+   !(x :command) (x1s :command list) (s1 :state) (out1s :output list)
+      (x2s :command list) (out2s :output list).
+     TR x (CFG x1s s1 out1s)
+       (CFG x2s (M1ns s1 x) (M1out s1 x::out2s)) <=>
+     ?(ins :command list).
+       (x1s = x::ins) /\ (x2s = ins) /\ (out2s = out1s):
+   thm
+val m1Trans_Equiv_TR =
+   |- TR (x :command)
+     (CFG (x::(ins :command list)) (s :state) (outs :output list))
+     (CFG ins (M1ns s x) (M1out s x::outs)) <=> Trans x s (M1ns s x):
+   thm
+val th1 =
+   |- !(ins :command list) (outs :output list).
+     TR i0 (CFG (i0::ins) S0 outs) (CFG ins S1 (o0::outs)):
+   thm
+val th2 =
+   |- !(ins :command list) (outs :output list).
+     TR i1 (CFG (i1::ins) S0 outs) (CFG ins S2 (o1::outs)):
+   thm
+val th3 =
+   |- !(ins :command list) (outs :output list).
+     TR i0 (CFG (i0::ins) S1 outs) (CFG ins S0 (o0::outs)):
+   thm
+val th4 =
+   |- !(ins :command list) (outs :output list).
+     TR i1 (CFG (i1::ins) S1 outs) (CFG ins S0 (o0::outs)):
+   thm
+val th5 =
+   |- !(ins :command list) (outs :output list).
+     TR i0 (CFG (i0::ins) S2 outs) (CFG ins S2 (o1::outs)):
+   thm
+val th6 =
+   |- !(ins :command list) (outs :output list).
+     TR i1 (CFG (i1::ins) S2 outs) (CFG ins S2 (o1::outs)):
+   thm
+val m1_rules =
+   |- (!(ins :command list) (outs :output list).
+      TR i0 (CFG (i0::ins) S0 outs) (CFG ins S1 (o0::outs))) /\
+   (!(ins :command list) (outs :output list).
+      TR i1 (CFG (i1::ins) S0 outs) (CFG ins S2 (o1::outs))) /\
+   (!(ins :command list) (outs :output list).
+      TR i0 (CFG (i0::ins) S1 outs) (CFG ins S0 (o0::outs))) /\
+   (!(ins :command list) (outs :output list).
+      TR i1 (CFG (i1::ins) S1 outs) (CFG ins S0 (o0::outs))) /\
+   (!(ins :command list) (outs :output list).
+      TR i0 (CFG (i0::ins) S2 outs) (CFG ins S2 (o1::outs))) /\
+   !(ins :command list) (outs :output list).
+     TR i1 (CFG (i1::ins) S2 outs) (CFG ins S2 (o1::outs)):
+   thm
+val it = (): unit
+> 
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\chapter{Exercise 16.3.2}
+\label{cha:e1161}
+
+In this exercise, we will define a state machine named \emph{Counter} and provide the corresponding datatypes, definitions or proofs:
+
+
+Before we go through the following sections, we will need to enter the folder \emph{Counter} and open up a new HOL session, then we will run
+\begin{lstlisting}[frame=trBL]
+app load ["../sm/smTheory", "../sminfRules"];
+
+open HolKernel Parse boolLib bossLib;
+open TypeBase smTheory sminfRules listTheory;
+\end{lstlisting}
+so all the following codes will work.
+\section{Exercise 16.3.2.A}
+\label{sec:e1161definition}
+
+In this section, we will provide several datatypes and their properties, for our state machine \emph{Counter}.
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+We will need to define three datatypes for our state machine \emph{Counter}, which are respectively \emph{ctrcmd}, \emph{ctrState} and \emph{ctrOut}. 
+
+\begin{lstlisting}[frame=trBL]
+val _ =
+Datatype `ctrcmd = load num | count | hold`;
+
+val _ =
+Datatype `ctrState = COUNT num`;
+
+val _ =
+Datatype `ctrOut = DISPLAY num`;
+\end{lstlisting}
+
+Also, we will need to prove the properties for these datatypes
+
+\begin{lstlisting}[frame=trBL]
+val ctrcmd_distinct_clauses = distinct_of ``:ctrcmd``;
+
+val ctrState_one_one = one_one_of ``:ctrState``;
+
+val ctrOut_one_one = one_one_of ``:ctrOut``;
+\end{lstlisting}
+
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send the first code snippet that defined the datatypes to HOL session, we will see transcript as below (if we keep the printing switches "unicode" off and "show types" on):
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> # <<HOL message: Defined type: "ctrcmd">>
+> > # <<HOL message: Defined type: "ctrState">>
+> > # <<HOL message: Defined type: "ctrOut">>
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+Then we will send the second code snippet, which shows the properties of the datatypes, to the HOL session, we will see transcript as below :
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+
+> val ctrcmd_distinct_clauses =
+   |- (!(a :num). load a <> count) /\ (!(a :num). load a <> hold) /\
+   count <> hold:
+   thm
+> > val ctrState_one_one =
+   |- !(a :num) (a' :num). (COUNT a = COUNT a') <=> (a = a'):
+   thm
+> > val ctrOut_one_one =
+   |- !(a :num) (a' :num). (DISPLAY a = DISPLAY a') <=> (a = a'):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\section{Exercise 16.3.2.B}
+
+In this section, we will provide our definition of next state function \emph{ctrNS_def} and output function \emph{ctrOut_def}, for our state machine \emph{Counter}. 
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+We will use the following code to define our next state function \emph{ctrNS_def} and output function \emph{ctrOut_def}.
+
+\begin{lstlisting}[frame=trBL]
+val ctrNS_def =
+Define
+`(ctrNS (COUNT n) (load k) = (COUNT k)) /\
+(ctrNS (COUNT n) count = (COUNT (n-1)))/\
+(ctrNS (COUNT n) (hold) =  (COUNT n))`
+
+
+val ctrOut_def =
+Define
+`(ctrOut (COUNT n) (load k) = (DISPLAY k)) /\
+ (ctrOut (COUNT n) (count) = (DISPLAY (n-1))) /\
+ (ctrOut (COUNT n) (hold) = (DISPLAY n))`
+\end{lstlisting}
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send the above code to HOL, we will see the transcript as below(still, the "show types" is on while "unicode" is off):
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> # # # # # # # # # # # <<HOL warning: GrammarDeltas.revise_data: 
+  Grammar-deltas:
+    overload_on("ctrNS_tupled")
+  invalidated by DelConstant(scratch$ctrNS_tupled)>>
+Equations stored under "ctrNS_def".
+Induction stored under "ctrNS_ind".
+<<HOL warning: GrammarDeltas.revise_data: 
+  Grammar-deltas:
+    overload_on("ctrOut_tupled")
+  invalidated by DelConstant(scratch$ctrOut_tupled)>>
+Equations stored under "ctrOut_def".
+Induction stored under "ctrOut_ind".
+val ctrNS_def =
+   |- !(n :num) (k :num).
+     (ctrNS (COUNT n) (load k) = COUNT k) /\
+     (ctrNS (COUNT n) count = COUNT (n - (1 :num))) /\
+     (ctrNS (COUNT n) hold = COUNT n):
+   thm
+val ctrOut_def =
+   |- !(n :num) (k :num).
+     (ctrOut (COUNT n) (load k) = DISPLAY k) /\
+     (ctrOut (COUNT n) count = DISPLAY (n - (1 :num))) /\
+     (ctrOut (COUNT n) hold = DISPLAY n):
+   thm
+> 
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+The pretty-printed definitions should look like this:
+
+
+\emph{ctrNS_def:}
+\begin{quote}
+\HOLcounterTheoremsctrNSXXdef
+\end{quote}
+
+\emph{ctrNS_ind:}
+\begin{quote}
+\HOLcounterTheoremsctrNSXXind
+\end{quote}
+
+\emph{ctrOut_def:}
+\begin{quote}
+\HOLcounterTheoremsctrOutXXdef
+\end{quote}
+
+\emph{ctrOut_ind:}
+\begin{quote}
+\HOLcounterTheoremsctrOutXXind
+\end{quote}
+
+
+
+\section{Exercise 16.3.2.C}
+\label{sec:e1161definition}
+
+In this section, we will prove some theorems for our state machine \emph{Counter}. 
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+We used the following code on \emph{ctrTR_rules}.
+\begin{lstlisting}[frame=trBL]
+val ctrTR_rules = SPEC_TR ``ctrNS`` ``ctrOut``;
+\end{lstlisting}
+
+As for \emph{ctrTR_clauses}, we have
+\begin{lstlisting}[frame=trBL]
+val ctrTR_clauses = SPEC_TR_clauses ``ctrNS`` ``ctrOut``;
+\end{lstlisting}
+
+We will use the following code to prove \emph{ctrTrans_Equiv_TR}
+\begin{lstlisting}[frame=trBL]
+val ctrTrans_Equiv_TR = SPEC_Trans_Equiv_TR ``ctrNS`` ``ctrOut``;
+\end{lstlisting}
+
+We can prove \emph{ctr_rules} with the following code
+\begin{lstlisting}[frame=trBL]
+val th1 =
+REWRITE_RULE
+[ctrNS_def, ctrOut_def]
+(SPECL[``COUNT n``, ``load new``] ctrTR_rules);
+
+val th2 =
+REWRITE_RULE
+[ctrNS_def, ctrOut_def]
+(SPECL[``COUNT n``, ``count``] ctrTR_rules);
+
+val th3 =
+REWRITE_RULE
+[ctrNS_def, ctrOut_def]
+(SPECL[``COUNT n``, ``hold``] ctrTR_rules);
+
+val ctr_rules = LIST_CONJ [th1, th2, th3];
+val _ = save_thm("ctr_rules", ctr_rules);
+\end{lstlisting}
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send all the codes above to HOL, we will see the transcript as below (still, "unicode" is off and "show types" is on):
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> val ctrTR_rules =
+   |- !(s :ctrState) (x :ctrcmd) (ins :ctrcmd list) (outs :ctrOut list).
+     TR x (CFG (x::ins) s outs) (CFG ins (ctrNS s x) (ctrOut s x::outs)):
+   thm
+val ctrTR_clauses =
+   |- (!(x :'input) (x1s :'input list) (s1 :'state) (out1s :'output list)
+       (x2s :'input list) (out2s :'output list) (s2 :'state).
+      TR x (CFG x1s s1 out1s) (CFG x2s s2 out2s) <=>
+      ?(NS :'state -> 'input -> 'state)
+         (Out :'state -> 'input -> 'output) (ins :'input list).
+        (x1s = x::ins) /\ (x2s = ins) /\ (s2 = NS s1 x) /\
+        (out2s = Out s1 x::out1s)) /\
+   !(x :ctrcmd) (x1s :ctrcmd list) (s1 :ctrState) (out1s :ctrOut list)
+      (x2s :ctrcmd list) (out2s :ctrOut list).
+     TR x (CFG x1s s1 out1s)
+       (CFG x2s (ctrNS s1 x) (ctrOut s1 x::out2s)) <=>
+     ?(ins :ctrcmd list).
+       (x1s = x::ins) /\ (x2s = ins) /\ (out2s = out1s):
+   thm
+val ctrTrans_Equiv_TR =
+   |- TR (x :ctrcmd)
+     (CFG (x::(ins :ctrcmd list)) (s :ctrState) (outs :ctrOut list))
+     (CFG ins (ctrNS s x) (ctrOut s x::outs)) <=> Trans x s (ctrNS s x):
+   thm
+val th1 =
+   |- !(ins :ctrcmd list) (outs :ctrOut list).
+     TR (load (new :num)) (CFG (load new::ins) (COUNT (n :num)) outs)
+       (CFG ins (COUNT new) (DISPLAY new::outs)):
+   thm
+<<HOL message: more than one resolution of overloading was possible>>
+val th2 =
+   |- !(ins :ctrcmd list) (outs :ctrOut list).
+     TR count (CFG (count::ins) (COUNT (n :num)) outs)
+       (CFG ins (COUNT (n - (1 :num))) (DISPLAY (n - (1 :num))::outs)):
+   thm
+val th3 =
+   |- !(ins :ctrcmd list) (outs :ctrOut list).
+     TR hold (CFG (hold::ins) (COUNT (n :num)) outs)
+       (CFG ins (COUNT n) (DISPLAY n::outs)):
+   thm
+val ctr_rules =
+   |- (!(ins :ctrcmd list) (outs :ctrOut list).
+      TR (load (new :num)) (CFG (load new::ins) (COUNT (n :num)) outs)
+        (CFG ins (COUNT new) (DISPLAY new::outs))) /\
+   (!(ins :ctrcmd list) (outs :ctrOut list).
+      TR count (CFG (count::ins) (COUNT n) outs)
+        (CFG ins (COUNT (n - (1 :num)))
+           (DISPLAY (n - (1 :num))::outs))) /\
+   !(ins :ctrcmd list) (outs :ctrOut list).
+     TR hold (CFG (hold::ins) (COUNT n) outs)
+       (CFG ins (COUNT n) (DISPLAY n::outs)):
+   thm
+val it = (): unit
+> 
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+%% ------------------------------------------
+%% Change to letters for appendix
+%% ------------------------------------------
+
+%% ------------------------------------------
+%% this restarts the section numbering
+%% ------------------------------------------
+\appendix{} 
+
+
+%% ------------------------------------------
+% label using capital letters
+%% ------------------------------------------
+\renewcommand{\thechapter}{\Alph{chapter}} 
+
+\chapter{Source Code for smScript.sml}
+\label{cha:source-code-sample}
+
+The following code is from \emph{smScript.sml}, which is located
+in directory "../HOL/sm" 
+\lstinputlisting{../HOL/sm/smScript.sml}
+
+\chapter{Source Code for m1Script.sml}
+\label{cha:source-code-sample}
+
+The following code is from \emph{m1Script.sml}, which is located
+in directory "../HOL/M1"
+\lstinputlisting{../HOL/M1/m1Script.sml}
+
+\chapter{Source Code for counterScript.sml}
+\label{cha:source-code-sample}
+
+The following code is from \emph{m1Script.sml}, which is located
+in directory "../HOL/Counter"
+\lstinputlisting{../HOL/Counter/counterScript.sml}
+
+\end{document}
