@@ -1,0 +1,31 @@
+\begin{theindex}
+
+  \item \textbf  {SM0 Theory}, 3
+    \subitem Datatypes, 3
+    \subitem Definitions, 3
+      \subsubitem certs2_def, 3
+      \subsubitem certs_def, 3
+      \subsubitem SM0StateInterp_def, 3
+    \subitem Theorems, 3
+      \subsubitem Alice_exec_privcmd_justified_thm, 3
+      \subsubitem Alice_justified_privcmd_exec_thm, 4
+      \subsubitem Alice_privcmd_lemma, 4
+      \subsubitem Alice_privcmd_verified_thm, 4
+      \subsubitem Carol_discard_lemma, 4
+      \subsubitem Carol_rejected_lemma, 5
+      \subsubitem command_distinct_clauses, 5
+      \subsubitem command_one_one, 5
+      \subsubitem inputOK2_def, 5
+      \subsubitem inputOK2_ind, 6
+      \subsubitem inputOK_def, 6
+      \subsubitem inputOK_ind, 7
+      \subsubitem output_distinct_clauses, 8
+      \subsubitem privcmd_distinct_clauses, 8
+      \subsubitem SM0ns_def, 8
+      \subsubitem SM0ns_ind, 8
+      \subsubitem SM0out_def, 9
+      \subsubitem SM0out_ind, 9
+      \subsubitem staff_distinct_clauses, 9
+      \subsubitem state_distinct_clauses, 9
+
+\end{theindex}

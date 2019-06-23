@@ -1,0 +1,18 @@
+\begin{theindex}
+
+  \item \textbf  {SM0Solutions Theory}, 3
+    \subitem Theorems, 3
+      \subsubitem Alice_exec_npriv_justified_thm, 3
+      \subsubitem Alice_justified_npriv_exec_thm, 3
+      \subsubitem Alice_npriv_lemma, 3
+      \subsubitem Alice_npriv_verified_thm, 3
+      \subsubitem Carol_exec_npriv_justified_thm, 4
+      \subsubitem Carol_justified_npriv_exec_thm, 4
+      \subsubitem Carol_justified_privcmd_trap_thm, 4
+      \subsubitem Carol_npriv_lemma, 5
+      \subsubitem Carol_npriv_verified_thm, 5
+      \subsubitem Carol_privcmd_trap_lemma, 5
+      \subsubitem Carol_privcmd_trapped_thm, 5
+      \subsubitem Carol_trap_privcmd_justified_thm, 5
+
+\end{theindex}

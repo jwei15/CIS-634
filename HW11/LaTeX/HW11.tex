@@ -1,0 +1,1250 @@
+%% ---------------------------------------------------
+%% Notice that we use the "report" class instead of "article"
+%% ---------------------------------------------------
+\documentclass{report}
+
+\title{Project 11}
+\author{\textbf{Jinhao Wei}}
+\date{\textbf{9 April 2019}}
+
+%% ---------------------------------------------------
+%% CSBDformat specifies the format of our reports
+%% ---------------------------------------------------
+\usepackage{634format}
+
+%% ---------------------------------------------------
+%% enumerate 
+%% ---------------------------------------------------
+\usepackage{enumerate}
+
+%% ---------------------------------------------------
+%% listings is used for including our source code in reports
+%% ---------------------------------------------------
+\usepackage{listings}
+\usepackage{textcomp}
+
+%% ---------------------------------------------------
+%% Packages for math environments
+%% ---------------------------------------------------
+\usepackage{amsmath}
+
+%% ---------------------------------------------------
+%% Packages for URLs and hotlinks in the table of contents
+%% and symbolic cross references using \ref
+%% ---------------------------------------------------
+\usepackage{hyperref}
+
+%% ---------------------------------------------------
+%% Packages for using HOL-generated macros and displays
+%% ---------------------------------------------------
+\usepackage{holtex}
+\usepackage{holtexbasic}
+\input{commands}
+
+\begin{document}
+
+
+\input{../HOL/HOLReports/HOLssmOne}
+\input{../HOL/HOLReports/HOLSMZero}
+\input{../HOL/HOLReports/HOLSMZeroSolutions}
+
+%% --------------------------------------------------- the listings
+%% parameter "language" is set to "ML"
+%% ---------------------------------------------------
+\lstset{language=ML,breaklines}
+
+
+\maketitle{}
+
+\begin{abstract}
+  This report is basically a summary on my attempts on Project 11, which includes definitions propoties and theorems on several types of state machines. This report provides my solutions on \emph{17.4.1} and \emph{17.4.3}. In addition, I had pretty-printed the corresponding datatypes and proofs and put the reports in the corresponding folders \emph{/HOL/HOLReports/}.
+\end{abstract}
+
+\begin{acknowledgments}
+  This project follows the format and structure of \emph{sampleTheory} provided by Professor Shiu-Kai Chin. To make it more accurate, this project mostly followed the format of one of my previous projects, which is project 5, and project 5 followed the sturcture of Professor Shiu-Kai Chin's \emph{sampleTheory} project. 
+\end{acknowledgments}
+
+\tableofcontents{}
+
+
+\chapter{Executive Summary}
+\label{cha:executive-summary}
+
+\textbf{All requirements for this project are satisfied}.  In
+particular, we defined all the datatypes and proved all the theorems in this project, pretty printed the HOL theories,
+and made use of the \emph{EmitTeX} structure to typeset HOL theorems
+in this report.
+
+For question \emph{17.4.1} and \emph{17.4.3}, we gave proofs on the following theorems or propoties:
+\begin{quote}
+  \HOLSMZeroSolutionsTheorems
+\end{quote}
+
+\begin{description}
+\item [Reproducibility in ML and \LaTeX]\ \\
+All ML and \LaTeX{} source files compile well on the environment provided by this course. 
+\end{description}
+
+
+\chapter{Exercise 17.4.1}
+\label{cha:e1161}
+
+In this exercise, we will prove the following theorems
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsAliceXXnprivXXlemma
+\HOLSMZeroSolutionsTheoremsAliceXXexecXXnprivXXjustifiedXXthm
+\HOLSMZeroSolutionsTheoremsAliceXXnprivXXverifiedXXthm
+\HOLSMZeroSolutionsTheoremsAliceXXjustifiedXXnprivXXexecXXthm
+\end{quote}
+
+\section{Exercise 17.4.1.A}
+\label{sec:e1161definition}
+
+In this section, we will prove the following theorems \emph{Alice_npriv_lemma}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsAliceXXnprivXXlemma
+\end{quote}
+
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+
+
+
+\begin{lstlisting}[frame=trBL]
+val Alice_npriv_lemma = 
+TAC_PROOF(
+([], ``CFGInterpret ((M:(command inst,'b,staff,'d,'e)Kripke),Oi,Os)
+  (CFG inputOK SM0StateInterp (certs cmd npriv privcmd)
+   (((Name Alice) says (prop (SOME (NP (npriv:npriv)))))::ins)
+   s (outs:output list)) ==>
+  ((M,Oi,Os) sat (prop (SOME(NP npriv))))``),
+  REWRITE_TAC[CFGInterpret_def, certs_def, SM0StateInterp_def, satList_CONS,satList_nil, sat_TT] THEN
+  PROVE_TAC [Controls])
+\end{lstlisting}
+
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send the above code to HOL session, we will see transcript as below:
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val Alice_npriv_lemma =
+   |- CFGInterpret
+     ((M :(command inst, 'b, staff, 'd, 'e) Kripke),(Oi :'d po),
+      (Os :'e po))
+     (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+        (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+        (certs (cmd :command) (npriv :npriv) (privcmd :privcmd) :
+           (command inst, staff, 'd, 'e) Form list)
+        (Name Alice says
+         (prop (SOME (NP npriv) :command inst) :
+            (command inst, staff, 'd, 'e) Form)::
+             (ins :(command inst, staff, 'd, 'e) Form list)) (s :state)
+        (outs :output list)) ==>
+   (M,Oi,Os) sat
+   (prop (SOME (NP npriv) :command inst) :
+      (command inst, staff, 'd, 'e) Form):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\section{Exercise 17.4.1.B}
+\label{sec:e1161definition}
+
+In this section, we will prove the following theorems \emph{Alice_exec_npriv_justified_thm}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsAliceXXexecXXnprivXXjustifiedXXthm
+\end{quote}
+
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+
+
+\begin{lstlisting}[frame=trBL]
+val Alice_exec_npriv_justified_thm 
+=
+let
+val th1 =
+    ISPECL
+    [``inputOK:(command inst, staff, 'd, 'e)Form->bool``,
+    ``(certs cmd npriv privcmd):(command inst, staff, 'd, 'e)Form list``,
+    ``SM0StateInterp: state->(command inst, staff, 'd, 'e)Form``,
+    ``Name Alice``,``NP npriv``, ``ins:(command inst, staff, 'd, 'e)Form list``,
+    ``s:state``,``outs:output list``]
+    TR_exec_cmd_rule
+in
+ TAC_PROOF(([],
+    ``!(NS :state -> command trType -> state)
+         (Out :state -> command trType -> output)
+         (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+         (Os :'e po).
+        TR (M,Oi,Os) (exec (NP (npriv :npriv)))
+          (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs (cmd :command) (npriv :npriv) privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Alice says
+              (prop (SOME (NP npriv) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::
+                  (ins :(command inst, staff, 'd, 'e) Form list)) (s :state)
+             (outs :output list))
+          (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list) ins
+             (NS s (exec (NP npriv)))
+             (Out s (exec (NP npriv))::outs)) <=>
+        inputOK
+          (Name Alice says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)) /\
+        CFGInterpret (M,Oi,Os)
+          (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Alice says
+              (prop (SOME (NP npriv) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::ins) s outs) /\
+        (M,Oi,Os) sat
+        (prop (SOME (NP npriv) :command inst) :
+           (command inst, staff, 'd, 'e) Form)``),
+	PROVE_TAC[th1, Alice_npriv_lemma])
+end
+\end{lstlisting}
+
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+The code above will give us the transcript as below:
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val Alice_exec_npriv_justified_thm =
+   |- !(NS :state -> command trType -> state)
+      (Out :state -> command trType -> output)
+      (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+      (Os :'e po).
+     TR (M,Oi,Os) (exec (NP (npriv :npriv)))
+       (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs (cmd :command) npriv (privcmd :privcmd) :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Alice says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::
+               (ins :(command inst, staff, 'd, 'e) Form list))
+          (s :state) (outs :output list))
+       (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list) ins
+          (NS s (exec (NP npriv))) (Out s (exec (NP npriv))::outs)) <=>
+     inputOK
+       (Name Alice says
+        (prop (SOME (NP npriv) :command inst) :
+           (command inst, staff, 'd, 'e) Form)) /\
+     CFGInterpret (M,Oi,Os)
+       (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Alice says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::ins) s outs) /\
+     (M,Oi,Os) sat
+     (prop (SOME (NP npriv) :command inst) :
+        (command inst, staff, 'd, 'e) Form):
+   thm
+val it = (): unit
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\section{Exercise 17.4.1.C}
+\label{sec:e1161definition}
+
+In this section, we will prove the following theorems \emph{Alice_npriv_verified_thm}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsAliceXXnprivXXverifiedXXthm
+\end{quote}
+
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+
+
+
+\begin{lstlisting}[frame=trBL]
+val Alice_npriv_verified_thm =
+TAC_PROOF(([],
+      ``!(NS :state -> command trType -> state)
+         (Out :state -> command trType -> output)
+         (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+         (Os :'e po).
+        TR (M,Oi,Os) (exec (NP (npriv :npriv)))
+          (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs (cmd :command) (npriv :npriv) privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Alice says
+              (prop (SOME (NP npriv) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::
+                  (ins :(command inst, staff, 'd, 'e) Form list)) (s :state)
+             (outs :output list))
+          (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list) ins
+             (NS s (exec (NP npriv)))
+             (Out s (exec (NP npriv))::outs)) ==>
+        (M,Oi,Os) sat
+        (prop (SOME (NP npriv) :command inst) :
+           (command inst, staff, 'd, 'e) Form)``),
+	   PROVE_TAC[Alice_exec_npriv_justified_thm])
+\end{lstlisting}
+
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send the above code snippet to HOL session, we will see transcript as below:
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val Alice_npriv_verified_thm =
+   |- !(NS :state -> command trType -> state)
+      (Out :state -> command trType -> output)
+      (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+      (Os :'e po).
+     TR (M,Oi,Os) (exec (NP (npriv :npriv)))
+       (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs (cmd :command) npriv (privcmd :privcmd) :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Alice says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::
+               (ins :(command inst, staff, 'd, 'e) Form list))
+          (s :state) (outs :output list))
+       (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list) ins
+          (NS s (exec (NP npriv))) (Out s (exec (NP npriv))::outs)) ==>
+     (M,Oi,Os) sat
+     (prop (SOME (NP npriv) :command inst) :
+        (command inst, staff, 'd, 'e) Form):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\section{Exercise 17.4.1.D}
+\label{sec:e1161definition}
+
+In this section, we will prove the following theorems \emph{Alice_justified_npriv_exec_thm}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsAliceXXjustifiedXXnprivXXexecXXthm
+\end{quote}
+
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+
+
+
+\begin{lstlisting}[frame=trBL]
+val Alice_justified_npriv_exec_thm = 
+TAC_PROOF(([],
+``!(NS :state -> command trType -> state)
+         (Out :state -> command trType -> output)
+         (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+         (Os :'e po) cmd npriv privcmd ins s outs.
+	 inputOK
+          (Name Alice says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)) /\
+	  CFGInterpret (M,Oi,Os)
+          (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Alice says
+              (prop (SOME (NP npriv) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::ins) s outs) ==>
+        TR (M,Oi,Os) (exec (NP (npriv :npriv)))
+          (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs (cmd :command) (npriv :npriv) privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Alice says
+              (prop (SOME (NP npriv) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::
+                  (ins :(command inst, staff, 'd, 'e) Form list)) (s :state)
+             (outs :output list))
+          (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list) ins
+             (NS s (exec (NP npriv)))
+             (Out s (exec (NP npriv))::outs))``),
+PROVE_TAC[Alice_exec_npriv_justified_thm, inputOK_def, Alice_npriv_lemma])
+\end{lstlisting}
+
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+The code above will let us see the transcript as below: 
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val Alice_justified_npriv_exec_thm =
+   |- !(NS :state -> command trType -> state)
+      (Out :state -> command trType -> output)
+      (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+      (Os :'e po) (cmd :command) (npriv :npriv) (privcmd :privcmd)
+      (ins :(command inst, staff, 'd, 'e) Form list) (s :state)
+      (outs :output list).
+     inputOK
+       (Name Alice says
+        (prop (SOME (NP npriv) :command inst) :
+           (command inst, staff, 'd, 'e) Form)) /\
+     CFGInterpret (M,Oi,Os)
+       (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Alice says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::ins) s outs) ==>
+     TR (M,Oi,Os) (exec (NP npriv))
+       (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Alice says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::ins) s outs)
+       (CFG (inputOK :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list) ins
+          (NS s (exec (NP npriv))) (Out s (exec (NP npriv))::outs)):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\chapter{Exercise 17.4.3}
+\label{cha:e1161}
+
+In this exercise, we will prove the following theorems
+
+
+\emph{Carol_npriv_lemma}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsCarolXXnprivXXlemma
+\end{quote}
+
+\emph{Carol_exec_npriv_justified_thm}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsCarolXXexecXXnprivXXjustifiedXXthm
+\end{quote}
+
+\emph{Carol_npriv_verified_thm}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsCarolXXnprivXXverifiedXXthm
+\end{quote}
+
+
+\emph{Carol_justified_npriv_exec_thm}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsCarolXXjustifiedXXnprivXXexecXXthm
+\end{quote}
+
+
+\emph{Carol_privcmd_trap_lemma}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsCarolXXprivcmdXXtrapXXlemma
+\end{quote}
+
+\emph{Carol_justified_privcmd_trap_thm}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsCarolXXjustifiedXXprivcmdXXtrapXXthm
+\end{quote}
+
+
+\emph{Carol_npriv_verified_thm}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsCarolXXnprivXXverifiedXXthm
+\end{quote}
+
+
+
+\emph{Carol_privcmd_trapped_thm}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsCarolXXprivcmdXXtrappedXXthm
+\end{quote}
+
+\section{Exercise 17.4.3.A}
+\label{sec:e1161definition}
+
+In this section, we will provide the following definitions \emph{inputOK2_def} and \emph{certs2_def}. Please kindly note that I had put the definitions in file \emph{SM0Scripts.sml} 
+
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+
+
+We will use the follwing code to define \emph{inputOK2_def}
+\begin{lstlisting}[frame=trBL]
+val inputOK2_def =
+Define
+`(inputOK2
+  (((Name Carol) says
+   (prop (SOME (cmd:command)))):(command inst,staff,'d,'e)Form) = T) /\
+ (inputOK2 _ = F)`
+
+
+val certs2_def =
+Define
+`certs2 (cmd:command)(npriv:npriv)(privcmd:privcmd) =
+ [(Name Carol controls ((prop (SOME (NP npriv))):(command inst, staff,'d,'e)Form));
+  ((Name Carol) says (prop (SOME (PR privcmd)))) impf (prop NONE)]`
+\end{lstlisting}
+
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send the code snippet that gives the definitions to HOL session, we will see transcript as below:
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val inputOK2_def =
+   |- ∀v98 v97 v96 v95 v94 v93 v92 v91 v90 v9 v89 v88 v87 v86 v85 v84 v83
+      v82 v81 v80 v8 v79 v78 v77 v76 v75 v74 v73 v72 v71 v70 v7 v69 v68
+      v67 v66 v6 v5 v4 v32 v31 v30 v3 v29 v28 v27 v26 v25 v24 v23 v22
+      v21 v20 v2 v19 v18 v17 v16 v15 v142 v14 v136 v135 v134 v133 v132
+      v13 v12 v10 v1 v cmd.
+     (inputOK2 (Name Carol says prop (SOME cmd)) ⇔ T) ∧
+     (inputOK2 TT ⇔ F) ∧ (inputOK2 FF ⇔ F) ∧ (inputOK2 (prop v) ⇔ F) ∧
+     (inputOK2 (notf v1) ⇔ F) ∧ (inputOK2 (v2 andf v3) ⇔ F) ∧
+     (inputOK2 (v4 orf v5) ⇔ F) ∧ (inputOK2 (v6 impf v7) ⇔ F) ∧
+     (inputOK2 (v8 eqf v9) ⇔ F) ∧ (inputOK2 (v10 says TT) ⇔ F) ∧
+     (inputOK2 (v10 says FF) ⇔ F) ∧
+     (inputOK2 (Name Alice says prop (SOME v142)) ⇔ F) ∧
+     (inputOK2 (Name Bob says prop (SOME v142)) ⇔ F) ∧
+     (inputOK2 (Name v132 says prop NONE) ⇔ F) ∧
+     (inputOK2 (v133 meet v134 says prop v66) ⇔ F) ∧
+     (inputOK2 (v135 quoting v136 says prop v66) ⇔ F) ∧
+     (inputOK2 (v10 says notf v67) ⇔ F) ∧
+     (inputOK2 (v10 says (v68 andf v69)) ⇔ F) ∧
+     (inputOK2 (v10 says (v70 orf v71)) ⇔ F) ∧
+     (inputOK2 (v10 says (v72 impf v73)) ⇔ F) ∧
+     (inputOK2 (v10 says (v74 eqf v75)) ⇔ F) ∧
+     (inputOK2 (v10 says v76 says v77) ⇔ F) ∧
+     (inputOK2 (v10 says v78 speaks_for v79) ⇔ F) ∧
+     (inputOK2 (v10 says v80 controls v81) ⇔ F) ∧
+     (inputOK2 (v10 says reps v82 v83 v84) ⇔ F) ∧
+     (inputOK2 (v10 says v85 domi v86) ⇔ F) ∧
+     (inputOK2 (v10 says v87 eqi v88) ⇔ F) ∧
+     (inputOK2 (v10 says v89 doms v90) ⇔ F) ∧
+     (inputOK2 (v10 says v91 eqs v92) ⇔ F) ∧
+     (inputOK2 (v10 says v93 eqn v94) ⇔ F) ∧
+     (inputOK2 (v10 says v95 lte v96) ⇔ F) ∧
+     (inputOK2 (v10 says v97 lt v98) ⇔ F) ∧
+     (inputOK2 (v12 speaks_for v13) ⇔ F) ∧
+     (inputOK2 (v14 controls v15) ⇔ F) ∧
+     (inputOK2 (reps v16 v17 v18) ⇔ F) ∧ (inputOK2 (v19 domi v20) ⇔ F) ∧
+     (inputOK2 (v21 eqi v22) ⇔ F) ∧ (inputOK2 (v23 doms v24) ⇔ F) ∧
+     (inputOK2 (v25 eqs v26) ⇔ F) ∧ (inputOK2 (v27 eqn v28) ⇔ F) ∧
+     (inputOK2 (v29 lte v30) ⇔ F) ∧ (inputOK2 (v31 lt v32) ⇔ F):
+   thm
+
+
+val certs2_def =
+   |- ∀cmd npriv privcmd.
+     certs2 cmd npriv privcmd =
+     [Name Carol controls prop (SOME (NP npriv));
+      Name Carol says prop (SOME (PR privcmd)) impf prop NONE]:
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+ and the fine-printed definitions should look like this, please check it at file \emph{/HOLReports/SM0Report.pdf}:
+
+
+\emph{\\inputOK2_def}
+\begin{quote}
+  \HOLSMZeroTheoremsinputOKTwoXXdef
+\end{quote}
+
+\emph{certs2_def}
+\begin{quote}
+\HOLSMZeroDefinitionscertsTwoXXdef
+\end{quote}
+
+
+\section{Exercise 17.4.3.B}
+\label{sec:e1161definition}
+
+In this section, we will prove the following theorems \emph{Carol_npriv_lemma}
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsCarolXXnprivXXlemma
+\end{quote}
+
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+
+For theorem \emph{Carol_npriv_lemma}, we will use the following code to prove it:
+
+\begin{lstlisting}[frame=trBL]
+val Carol_npriv_lemma 
+=
+TAC_PROOF(
+([],
+``CFGInterpret ((M:(command inst,'b,staff,'d,'e)Kripke),Oi,Os)
+  (CFG inputOK2 SM0StateInterp (certs2 cmd npriv privcmd)
+   (((Name Carol) says (prop (SOME (NP (npriv:npriv)))))::ins)
+   s (outs:output list)) ==>
+  ((M,Oi,Os) sat (prop (SOME(NP npriv))))``),
+  REWRITE_TAC [CFGInterpret_def, certs2_def, SM0StateInterp_def, satList_CONS, satList_nil, sat_TT] THEN
+  PROVE_TAC[Controls])
+\end{lstlisting}
+
+
+For theorem \emph{Carol_exec_npriv_justified_thm}, we will use the following code:
+
+\begin{lstlisting}[frame=trBL]
+val Carol_exec_npriv_justified_thm
+=
+    let val th1 =
+    ISPECL
+    [``inputOK2:(command inst, staff, 'd, 'e)Form -> bool``,
+    ``(certs2 cmd npriv privcmd):(command inst, staff, 'd, 'e)Form list``,
+    ``SM0StateIntern: state->(command inst, staff, 'd, 'e)Form``,
+    ``Name Carol``, ``NP npriv``, ``ins:(command inst, staff, 'd, 'e)Form list``,
+    ``s: state``, ``outs:output list``]
+    TR_exec_cmd_rule;
+in
+TAC_PROOF(
+([],
+      ``!(NS :state -> command trType -> state)
+         (Out :state -> command trType -> output)
+         (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+         (Os :'e po).
+        TR (M,Oi,Os) (exec (NP (npriv :npriv)))
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 (cmd :command) (npriv :npriv) privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Carol says
+              (prop (SOME (NP npriv) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::
+                  (ins :(command inst, staff, 'd, 'e) Form list)) (s :state)
+             (outs :output list))
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list) ins
+             (NS s (exec (NP npriv)))
+             (Out s (exec (NP npriv))::outs)) <=>
+        inputOK2
+          (Name Carol says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)) /\
+        CFGInterpret (M,Oi,Os)
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Carol says
+              (prop (SOME (NP npriv) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::ins) s outs) /\
+        (M,Oi,Os) sat
+        (prop (SOME (NP npriv) :command inst) :
+           (command inst, staff, 'd, 'e) Form)``),
+	   PROVE_TAC[th1, Carol_npriv_lemma])
+end
+\end{lstlisting}
+
+
+
+For theorem \emph{Carol_npriv_verified_thm}, we will use the following code to prove it:
+
+\begin{lstlisting}[frame=trBL]
+val Carol_npriv_verified_thm
+= TAC_PROOF(
+([],
+      ``!(NS :state -> command trType -> state)
+         (Out :state -> command trType -> output)
+         (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+         (Os :'e po).
+        TR (M,Oi,Os) (exec (NP (npriv :npriv)))
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 (cmd :command) (npriv :npriv) privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Carol says
+              (prop (SOME (NP npriv) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::
+                  (ins :(command inst, staff, 'd, 'e) Form list)) (s :state)
+             (outs :output list))
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list) ins
+             (NS s (exec (NP npriv)))
+             (Out s (exec (NP npriv))::outs)) ==>
+        (M,Oi,Os) sat
+        (prop (SOME (NP npriv) :command inst) :
+           (command inst, staff, 'd, 'e) Form)``),
+	   PROVE_TAC [Carol_exec_npriv_justified_thm])
+\end{lstlisting}
+
+
+For theorem \emph{Carol_justified_npriv_exec_thm}, we will use the following code to prove it:
+
+\begin{lstlisting}[frame=trBL]
+val Carol_justified_npriv_exec_thm =
+TAC_PROOF(
+([],
+      ``!(NS :state -> command trType -> state)
+         (Out :state -> command trType -> output)
+         (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+         (Os :'e po) cmd npriv privcmd ins s outs.
+	 inputOK2
+          (Name Carol says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)) /\
+	  CFGInterpret (M,Oi,Os)
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Carol says
+              (prop (SOME (NP npriv) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::ins) s outs) ==>
+        TR (M,Oi,Os) (exec (NP (npriv :npriv)))
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 (cmd :command) (npriv :npriv) privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Carol says
+              (prop (SOME (NP npriv) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::
+                  (ins :(command inst, staff, 'd, 'e) Form list)) (s :state)
+             (outs :output list))
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list) ins
+             (NS s (exec (NP npriv)))
+             (Out s (exec (NP npriv))::outs))``),
+PROVE_TAC[Carol_exec_npriv_justified_thm, inputOK2_def, Carol_npriv_lemma])
+\end{lstlisting}
+
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send the code snippets above to HOL session, we will see the following transcripts, respectively:
+
+For \emph{Carol_npriv_lemma:\\}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val Carol_npriv_lemma =
+   |- CFGInterpret
+     ((M :(command inst, 'b, staff, 'd, 'e) Kripke),(Oi :'d po),
+      (Os :'e po))
+     (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+        (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+        (certs2 (cmd :command) (npriv :npriv) (privcmd :privcmd) :
+           (command inst, staff, 'd, 'e) Form list)
+        (Name Carol says
+         (prop (SOME (NP npriv) :command inst) :
+            (command inst, staff, 'd, 'e) Form)::
+             (ins :(command inst, staff, 'd, 'e) Form list)) (s :state)
+        (outs :output list)) ==>
+   (M,Oi,Os) sat
+   (prop (SOME (NP npriv) :command inst) :
+      (command inst, staff, 'd, 'e) Form):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+For \emph{Carol_exec_npriv_justified_thm:\\}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val Carol_exec_npriv_justified_thm =
+   |- !(NS :state -> command trType -> state)
+      (Out :state -> command trType -> output)
+      (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+      (Os :'e po).
+     TR (M,Oi,Os) (exec (NP (npriv :npriv)))
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 (cmd :command) npriv (privcmd :privcmd) :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Carol says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::
+               (ins :(command inst, staff, 'd, 'e) Form list))
+          (s :state) (outs :output list))
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list) ins
+          (NS s (exec (NP npriv))) (Out s (exec (NP npriv))::outs)) <=>
+     inputOK2
+       (Name Carol says
+        (prop (SOME (NP npriv) :command inst) :
+           (command inst, staff, 'd, 'e) Form)) /\
+     CFGInterpret (M,Oi,Os)
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Carol says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::ins) s outs) /\
+     (M,Oi,Os) sat
+     (prop (SOME (NP npriv) :command inst) :
+        (command inst, staff, 'd, 'e) Form):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+For \emph{Carol_npriv_verified_thm:\\}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val Carol_npriv_verified_thm =
+   |- !(NS :state -> command trType -> state)
+      (Out :state -> command trType -> output)
+      (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+      (Os :'e po).
+     TR (M,Oi,Os) (exec (NP (npriv :npriv)))
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 (cmd :command) npriv (privcmd :privcmd) :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Carol says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::
+               (ins :(command inst, staff, 'd, 'e) Form list))
+          (s :state) (outs :output list))
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list) ins
+          (NS s (exec (NP npriv))) (Out s (exec (NP npriv))::outs)) ==>
+     (M,Oi,Os) sat
+     (prop (SOME (NP npriv) :command inst) :
+        (command inst, staff, 'd, 'e) Form):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+For \emph{Carol_justified_npriv_exec_thm:\\}
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val Carol_justified_npriv_exec_thm =
+   |- !(NS :state -> command trType -> state)
+      (Out :state -> command trType -> output)
+      (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+      (Os :'e po) (cmd :command) (npriv :npriv) (privcmd :privcmd)
+      (ins :(command inst, staff, 'd, 'e) Form list) (s :state)
+      (outs :output list).
+     inputOK2
+       (Name Carol says
+        (prop (SOME (NP npriv) :command inst) :
+           (command inst, staff, 'd, 'e) Form)) /\
+     CFGInterpret (M,Oi,Os)
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Carol says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::ins) s outs) ==>
+     TR (M,Oi,Os) (exec (NP npriv))
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Carol says
+           (prop (SOME (NP npriv) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::ins) s outs)
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list) ins
+          (NS s (exec (NP npriv))) (Out s (exec (NP npriv))::outs)):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\section{Exercise 17.4.3.C}
+\label{sec:e1161definition}
+
+In this section, we will prove the following theorems 
+\begin{quote}
+\HOLSMZeroSolutionsTheoremsCarolXXnprivXXlemma
+\end{quote}
+
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+
+For theorem \emph{Carol_privcmd_trap_lemma}, we will use the following code to prove it:
+\begin{lstlisting}[frame=trBL]
+val Carol_privcmd_trap_lemma
+= TAC_PROOF(
+([], ``CFGInterpret ((M:(command inst,'b,staff,'d,'e)Kripke),Oi,Os)
+  (CFG inputOK2 SM0StateInterp (certs2 cmd npriv privcmd)
+   (((Name Carol) says (prop (SOME (PR (privcmd:privcmd)))))::ins)
+   s (outs:output list)) ==>
+  ((M,Oi,Os) sat (prop NONE))``),
+  REWRITE_TAC[CFGInterpret_def, certs2_def, SM0StateInterp_def, satList_CONS, satList_nil, sat_TT] THEN
+  PROVE_TAC[Controls, TR_trap_cmd_rule, Modus_Ponens])
+\end{lstlisting}
+
+As for \emph{Carol_trap_privcmd_justified_thm}, please use the following code:
+\begin{lstlisting}[frame=trBL]
+val Carol_trap_privcmd_justified_thm
+=
+let
+val th1 =
+    ISPECL
+    [``inputOK2:(command inst, staff, 'd, 'e)Form->bool``,
+    ``SM0StateInterp: state->(command inst, staff, 'd, 'e)Form``,
+    ``(certs2 cmd npriv privcmd):(command inst, staff, 'd, 'e)Form list``,
+    ``Name Carol``,``PR privcmd``, ``ins:(command inst, staff, 'd, 'e)Form list``,
+    ``s:state``,``outs:output list``]
+    TR_trap_cmd_rule
+in
+TAC_PROOF(
+(
+	[],
+      ``!(NS :state -> command trType -> state)
+         (Out :state -> command trType -> output)
+         (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+         (Os :'e po).
+        TR (M,Oi,Os) (trap (PR (privcmd :privcmd)))
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 (cmd :command) (npriv :npriv) privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Carol says
+              (prop (SOME (PR privcmd) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::
+                  (ins :(command inst, staff, 'd, 'e) Form list)) (s :state)
+             (outs :output list))
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list) ins
+             (NS s (trap (PR privcmd)))
+             (Out s (trap (PR privcmd))::outs)) <=>
+        inputOK2
+          (Name Carol says
+           (prop (SOME (PR privcmd) :command inst) :
+              (command inst, staff, 'd, 'e) Form)) /\
+        CFGInterpret (M,Oi,Os)
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Carol says
+              (prop (SOME (PR privcmd) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::ins) s outs) /\
+        (M,Oi,Os) sat (prop NONE) : (command inst, staff, 'd, 'e) Form``),
+	PROVE_TAC [th1, Carol_privcmd_trap_lemma])
+end
+\end{lstlisting}
+
+
+The following code will prove \emph{Carol_privcmd_trapped_thm}
+\begin{lstlisting}[frame=trBL]
+val Carol_privcmd_trapped_thm
+= TAC_PROOF(
+([],
+      ``!(NS :state -> command trType -> state)
+         (Out :state -> command trType -> output)
+         (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+         (Os :'e po).
+        TR (M,Oi,Os) (trap (PR (privcmd :privcmd)))
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 (cmd :command) (npriv :npriv) privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Carol says
+              (prop (SOME (PR privcmd) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::
+                  (ins :(command inst, staff, 'd, 'e) Form list)) (s :state)
+             (outs :output list))
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list) ins
+             (NS s (trap (PR privcmd)))
+             (Out s (trap (PR privcmd))::outs)) ==>
+        (M,Oi,Os) sat
+        (prop NONE:
+           (command inst, staff, 'd, 'e) Form)``),
+	   PROVE_TAC [Carol_trap_privcmd_justified_thm]
+)
+\end{lstlisting}
+
+
+Finally, we can use the following code to prove \emph{Carol_justified_privcmd_trap_thm}
+\begin{lstlisting}[frame=trBL]
+val Carol_justified_privcmd_trap_thm
+=
+TAC_PROOF(
+([],
+      ``!(NS :state -> command trType -> state)
+         (Out :state -> command trType -> output)
+         (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+         (Os :'e po) cmd npriv privcmd ins s outs.
+	 inputOK2
+          (Name Carol says
+           (prop (SOME (PR privcmd) :command inst) :
+              (command inst, staff, 'd, 'e) Form)) /\
+	  CFGInterpret (M,Oi,Os)
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Carol says
+              (prop (SOME (PR privcmd) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::ins) s outs) ==>
+        TR (M,Oi,Os) (trap (PR (privcmd :privcmd)))
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 (cmd :command) (npriv :npriv) privcmd :
+                (command inst, staff, 'd, 'e) Form list)
+             (Name Carol says
+              (prop (SOME (PR privcmd) :command inst) :
+                 (command inst, staff, 'd, 'e) Form)::
+                  (ins :(command inst, staff, 'd, 'e) Form list)) (s :state)
+             (outs :output list))
+          (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+             (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+             (certs2 cmd npriv privcmd :
+                (command inst, staff, 'd, 'e) Form list) ins
+             (NS s (trap (PR privcmd)))
+             (Out s (trap (PR privcmd))::outs))``),
+	     PROVE_TAC[Carol_trap_privcmd_justified_thm, inputOK2_def, Carol_privcmd_trap_lemma])
+\end{lstlisting}
+
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send each of the code snippets to HOL session,  we will see transcripts as below:
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val Carol_privcmd_trap_lemma =
+   |- CFGInterpret
+     ((M :(command inst, 'b, staff, 'd, 'e) Kripke),(Oi :'d po),
+      (Os :'e po))
+     (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+        (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+        (certs2 (cmd :command) (npriv :npriv) (privcmd :privcmd) :
+           (command inst, staff, 'd, 'e) Form list)
+        (Name Carol says
+         (prop (SOME (PR privcmd) :command inst) :
+            (command inst, staff, 'd, 'e) Form)::
+             (ins :(command inst, staff, 'd, 'e) Form list)) (s :state)
+        (outs :output list)) ==>
+   (M,Oi,Os) sat
+   (prop (NONE :command inst) :(command inst, staff, 'd, 'e) Form):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val Carol_trap_privcmd_justified_thm =
+   |- !(NS :state -> command trType -> state)
+      (Out :state -> command trType -> output)
+      (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+      (Os :'e po).
+     TR (M,Oi,Os) (trap (PR (privcmd :privcmd)))
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 (cmd :command) (npriv :npriv) privcmd :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Carol says
+           (prop (SOME (PR privcmd) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::
+               (ins :(command inst, staff, 'd, 'e) Form list))
+          (s :state) (outs :output list))
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list) ins
+          (NS s (trap (PR privcmd)))
+          (Out s (trap (PR privcmd))::outs)) <=>
+     inputOK2
+       (Name Carol says
+        (prop (SOME (PR privcmd) :command inst) :
+           (command inst, staff, 'd, 'e) Form)) /\
+     CFGInterpret (M,Oi,Os)
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Carol says
+           (prop (SOME (PR privcmd) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::ins) s outs) /\
+     (M,Oi,Os) sat
+     (prop (NONE :command inst) :(command inst, staff, 'd, 'e) Form):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val Carol_privcmd_trapped_thm =
+   |- !(NS :state -> command trType -> state)
+      (Out :state -> command trType -> output)
+      (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+      (Os :'e po).
+     TR (M,Oi,Os) (trap (PR (privcmd :privcmd)))
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 (cmd :command) (npriv :npriv) privcmd :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Carol says
+           (prop (SOME (PR privcmd) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::
+               (ins :(command inst, staff, 'd, 'e) Form list))
+          (s :state) (outs :output list))
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list) ins
+          (NS s (trap (PR privcmd)))
+          (Out s (trap (PR privcmd))::outs)) ==>
+     (M,Oi,Os) sat
+     (prop (NONE :command inst) :(command inst, staff, 'd, 'e) Form):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+val Carol_justified_privcmd_trap_thm =
+   |- !(NS :state -> command trType -> state)
+      (Out :state -> command trType -> output)
+      (M :(command inst, 'b, staff, 'd, 'e) Kripke) (Oi :'d po)
+      (Os :'e po) (cmd :command) (npriv :npriv) (privcmd :privcmd)
+      (ins :(command inst, staff, 'd, 'e) Form list) (s :state)
+      (outs :output list).
+     inputOK2
+       (Name Carol says
+        (prop (SOME (PR privcmd) :command inst) :
+           (command inst, staff, 'd, 'e) Form)) /\
+     CFGInterpret (M,Oi,Os)
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Carol says
+           (prop (SOME (PR privcmd) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::ins) s outs) ==>
+     TR (M,Oi,Os) (trap (PR privcmd))
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list)
+          (Name Carol says
+           (prop (SOME (PR privcmd) :command inst) :
+              (command inst, staff, 'd, 'e) Form)::ins) s outs)
+       (CFG (inputOK2 :(command inst, staff, 'd, 'e) Form -> bool)
+          (SM0StateInterp :state -> (command inst, staff, 'd, 'e) Form)
+          (certs2 cmd npriv privcmd :
+             (command inst, staff, 'd, 'e) Form list) ins
+          (NS s (trap (PR privcmd))) (Out s (trap (PR privcmd))::outs)):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+%% ------------------------------------------
+%% Change to letters for appendix
+%% ------------------------------------------
+
+%% ------------------------------------------
+%% this restarts the section numbering
+%% ------------------------------------------
+\appendix{} 
+
+
+%% ------------------------------------------
+% label using capital letters
+%% ------------------------------------------
+\renewcommand{\thechapter}{\Alph{chapter}} 
+
+\chapter{Source Code for ssm1Script.sml}
+\label{cha:source-code-sample}
+
+The following code is from \emph{ssm1Script.sml}, which is located
+in directory "../HOL/" 
+\lstinputlisting{../HOL/ssm1Script.sml}
+
+\chapter{Source Code for SM0Script.sml}
+\label{cha:source-code-sample}
+
+The following code is from \emph{SM0Script.sml}, which is located
+in directory "../HOL/"
+\lstinputlisting{../HOL/SM0Script.sml}
+
+\chapter{Source Code for SM0SolutionsScript.sml}
+\label{cha:source-code-sample}
+
+The following code is from \emph{SM0SolutionsScript.sml}, which is located
+in directory "../HOL/"
+\lstinputlisting{../HOL/SM0SolutionsScript.sml}
+
+\end{document}

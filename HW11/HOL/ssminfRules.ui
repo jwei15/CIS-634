@@ -1,0 +1,7 @@
+$(HOLDIR)/sigobj/Abbrev
+$(HOLDIR)/sigobj/Overlay
+$(HOLDIR)/sigobj/Term
+$(HOLDIR)/sigobj/Thm
+$(HOLDIR)/sigobj/Type
+/home/csbd/HW11/HOL/ssminfRules
+/home/csbd/HW11/HOL/ssminfRules.sig
