@@ -1,0 +1,13 @@
+\begin{theindex}
+
+  \item \textbf  {nexp Theory}, 3
+    \subitem Datatypes, 3
+    \subitem Definitions, 3
+      \subsubitem nexpVal_def, 3
+    \subitem Theorems, 3
+      \subsubitem Add_0, 3
+      \subsubitem Add_SYM, 3
+      \subsubitem Mult_ASSOC, 3
+      \subsubitem Sub_0, 3
+
+\end{theindex}

@@ -1,0 +1,349 @@
+%% ---------------------------------------------------
+%% Notice that we use the "report" class instead of "article"
+%% ---------------------------------------------------
+\documentclass{report}
+
+\title{Project 9}
+\author{\textbf{Jinhao Wei}}
+\date{\textbf{26 March 2019}}
+
+%% ---------------------------------------------------
+%% CSBDformat specifies the format of our reports
+%% ---------------------------------------------------
+\usepackage{634format}
+
+%% ---------------------------------------------------
+%% enumerate 
+%% ---------------------------------------------------
+\usepackage{enumerate}
+
+%% ---------------------------------------------------
+%% listings is used for including our source code in reports
+%% ---------------------------------------------------
+\usepackage{listings}
+\usepackage{textcomp}
+
+%% ---------------------------------------------------
+%% Packages for math environments
+%% ---------------------------------------------------
+\usepackage{amsmath}
+
+%% ---------------------------------------------------
+%% Packages for URLs and hotlinks in the table of contents
+%% and symbolic cross references using \ref
+%% ---------------------------------------------------
+\usepackage{hyperref}
+
+%% ---------------------------------------------------
+%% Packages for using HOL-generated macros and displays
+%% ---------------------------------------------------
+\usepackage{holtex}
+\usepackage{holtexbasic}
+\input{commands}
+
+\begin{document}
+
+
+\input{../HOL/HOLReports/HOLcipher}
+\input{../HOL/HOLReports/HOLcryptoExercise}
+
+%% --------------------------------------------------- the listings
+%% parameter "language" is set to "ML"
+%% ---------------------------------------------------
+\lstset{language=ML,breaklines}
+
+
+\maketitle{}
+
+\begin{abstract}
+  This report is basically a summary on my attempts on Project 9, which includes tactic-based proof of cryptography theorems. This report provides my solutions on \emph{exercise 15.6.1}, \emph{15.6.2} and \emph{15.6.3}. In addition, I had fine printed the corresponding datatypes and proofs and put the reports in \emph{../HOL/HOLReports/cryptoExerciseReport.pdf}.
+\end{abstract}
+
+\begin{acknowledgments}
+  This project follows the format and structure of \emph{sampleTheory} provided by Professor Shiu-Kai Chin. To make it more accurate, this project mostly followed the format of one of my previous projects, which is project 5, and project 5 followed the sturcture of Professor Shiu-Kai Chin's \emph{sampleTheory} project. Besides, this project relies on \emph{../HOL/cipherScript.sml} and \emph{../HOL/isainfRules.sml}, which are also provided by Professor Shiu-Kai Chin.
+\end{acknowledgments}
+
+\tableofcontents{}
+
+
+\chapter{Executive Summary}
+\label{cha:executive-summary}
+
+\textbf{All requirements for this project are satisfied}.  In
+particular, we defined all the datatypes and proved all the theorems in this project, pretty printed the HOL theories,
+and made use of the \emph{EmitTeX} structure to typeset HOL theorems
+in this report.
+
+We gave proofs on the following theorems:
+\begin{quote}
+  \HOLcryptoExerciseTheorems
+\end{quote}
+
+\begin{description}
+\item [Reproducibility in ML and \LaTeX]\ \\
+All ML and \LaTeX{} source files compile well on the environment provided by this course.
+\end{description}
+
+
+\chapter{Exercise 15.6.1}
+\label{cha:e1161}
+
+\section{Problem Statement}
+\label{sec:e1161ps}
+In this exercise, we gave proofs of two theorems:
+\HOLcryptoExerciseTheoremsexerciseOneFiveXXSixXXFourXXOneaXXthm 
+
+and 
+
+\HOLcryptoExerciseTheoremsexerciseOneFiveXXSixXXFourXXOnebXXthm
+
+Before we go through the following sections, we will need to run
+\begin{lstlisting}[frame=trBL]
+app load ["cipherTheory","stringTheory"]
+open HolKernel Parse boolLib bossLib
+open TypeBase isainfRules optionTheory
+open cipherTheory
+\end{lstlisting}
+in HOL session.
+\section{Proof of exercise15_6_1a_thm}
+\label{sec:e1161definition}
+
+In this section, we will prove
+\HOLcryptoExerciseTheoremsexerciseOneFiveXXSixXXFourXXOneaXXthm
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+We used the following code to construct a goal-oriented proof.
+\begin{lstlisting}[frame=trBL]
+val exercise15_6_4_1a_thm =
+TAC_PROOF (
+([],
+``!key enMsg message.(deciphS key enMsg = SOME message)= (enMsg = Es key (SOME message))``),
+PROVE_TAC [deciphS_one_one]
+);
+\end{lstlisting}
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send the above code to HOL, we will see the transcript as below:
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> # # # # # <<HOL message: inventing new type variable names: 'a>>
+Meson search level: ..........
+val exercise15_6_4_1a_thm =
+   |- !(key :symKey) (enMsg :'a symMsg) (message :'a).
+     (deciphS key enMsg = SOME message) <=>
+     (enMsg = Es key (SOME message)):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\section{Proof of exercise15_6_1b_thm}
+\label{sec:e1161definition}
+In this section, we will prove theorem \HOLcryptoExerciseTheoremsexerciseOneFiveXXSixXXFourXXOnebXXthm
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+We will use the following code to give a tacti-based proof.
+\begin{lstlisting}[frame=trBL]
+val exercise15_6_4_1b_thm =
+TAC_PROOF(
+([], ``!keyAlice k text.(deciphS keyAlice (Es k (SOME text)) = SOME "This is from Alice") = (k=keyAlice)/\(text = "This is from Alice")``),
+PROVE_TAC [deciphS_one_one]
+)
+\end{lstlisting}
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send the above code to HOL, we will see the transcript as below:
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> # # # Meson search level: ......................
+val it =
+   |- !(keyAlice :symKey) (k :symKey) (text :string).
+     (deciphS keyAlice (Es k (SOME text)) =
+      SOME "This is from Alice") <=>
+     (k = keyAlice) /\ (text = "This is from Alice"):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+
+\chapter{Exercise 15.6.2}
+\label{cha:e1161}
+
+\section{Problem Statement}
+\label{sec:e1161ps}
+In this exercise, we gave proofs on two theorems
+\HOLcryptoExerciseTheoremsexerciseOneFiveXXSixXXFourXXTwoaXXthm and
+\HOLcryptoExerciseTheoremsexerciseOneFiveXXSixXXFourXXTwobXXthm
+
+Before we go through the following sections, we will need to run
+\begin{lstlisting}[frame=trBL]
+app load ["cipherTheory","stringTheory"]
+open HolKernel Parse boolLib bossLib
+open TypeBase isainfRules optionTheory
+open cipherTheory
+\end{lstlisting}
+in HOL session.
+
+\section{Proof of exercise_15_6_2a_thm}
+\label{sec:e1161definition}
+
+In this section, we will prove
+\HOLcryptoExerciseTheoremsexerciseOneFiveXXSixXXFourXXTwoaXXthm
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+We used the following code to construct a goal-oriented proof.
+\begin{lstlisting}[frame=trBL]
+val exercise15_6_4_2a_thm =
+TAC_PROOF(
+([], ``!P message. (deciphP (pubK P) enMsg = SOME message) = (enMsg = Ea (privK P)(SOME message))``),
+PROVE_TAC [deciphP_one_one]
+);
+\end{lstlisting}
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send the above code to HOL, we will see the transcript as below:
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> # # # # <<HOL message: inventing new type variable names: 'a, 'b>>
+Meson search level: ..........
+val exercise15_6_4_2a_thm =
+   |- !(P :'a) (message :'b).
+     (deciphP (pubK P) (enMsg :('b, 'a) asymMsg) = SOME message) <=>
+     (enMsg = Ea (privK P) (SOME message)):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\section{Proof of exercise15_6_2b_thm}
+\label{sec:e1161definition}
+In this section, we will prove theorem \HOLcryptoExerciseTheoremsexerciseOneFiveXXSixXXFourXXTwobXXthm
+
+\subsection{Relevant Code}
+\label{subsec:e1161code}
+We will use the following code to give a tactic-based proof.
+\begin{lstlisting}[frame=trBL]
+val exercise15_6_4_2b_thm =
+TAC_PROOF(
+([],``!key text.(deciphP (pubK Alice) (Ea key (SOME text)) = SOME "This is from Alice") = (key = privK Alice)/\(text = "This is from Alice")``),
+PROVE_TAC [deciphP_one_one]
+)
+\end{lstlisting}
+
+\subsection{Session Transcript}
+\label{subsec:e1161st}
+If we send the above code to HOL, we will see the transcript as below:
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> # # # # <<HOL message: inventing new type variable names: 'a>>
+Meson search level: ......................
+val exercise15_6_4_2b_thm =
+   |- !(key :'a pKey) (text :string).
+     (deciphP (pubK (Alice :'a)) (Ea key (SOME text)) =
+      SOME "This is from Alice") <=>
+     (key = privK Alice) /\ (text = "This is from Alice"):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\chapter{Exercise 15.6.3}
+\label{cha:e1161}
+
+\section{Problem Statement}
+\label{sec:e1161ps}
+In this exercise, we gave our proof on theorem
+
+\HOLcryptoExerciseTheoremsexerciseOneFiveXXSixXXFourXXThreeXXthm
+%{\UseVerbatim{HOLcryptoExerciseTheoremsexerciseOneFiveXXSixXXFourXXThreeXXthm}}
+
+Before we go through the following sections, we will need to run
+\begin{lstlisting}[frame=trBL]
+app load ["cipherTheory","stringTheory"]
+open HolKernel Parse boolLib bossLib
+open TypeBase isainfRules optionTheory
+open cipherTheory
+\end{lstlisting}
+in HOL session.
+
+\section{Relevant Code}
+\label{subsec:e1161code}
+We used the following code to construct a goal-oriented proof.
+\begin{lstlisting}[frame=trBL]
+val exercise15_6_4_3_thm =
+TAC_PROOF(
+([], ``!signature. signVerify (pubK Alice) signature (SOME "This is from Alice") = (signature = sign(privK Alice)(hash (SOME "This is from Alice")))``),
+PROVE_TAC [signVerify_one_one]
+);
+\end{lstlisting}
+
+\section{Session Transcript}
+\label{subsec:e1161st}
+If we send the above code to HOL, we will see the transcript as below:
+\begin{session}
+  \begin{scriptsize}
+\begin{verbatim}
+ 
+> # # # # <<HOL message: inventing new type variable names: 'a>>
+Meson search level: ..........
+val exercise15_6_4_3_thm =
+   |- !(signature :(string digest, 'a) asymMsg).
+     signVerify (pubK (Alice :'a)) signature
+       (SOME "This is from Alice") <=>
+     (signature = sign (privK Alice) (hash (SOME "This is from Alice"))):
+   thm
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+%% ------------------------------------------
+%% Change to letters for appendix
+%% ------------------------------------------
+
+%% ------------------------------------------
+%% this restarts the section numbering
+%% ------------------------------------------
+\appendix{} 
+
+
+%% ------------------------------------------
+% label using capital letters
+%% ------------------------------------------
+\renewcommand{\thechapter}{\Alph{chapter}} 
+
+\chapter{Source Code for cipherScript.sml}
+\label{cha:source-code-sample}
+
+The following code is from \emph{cipherScript.sml}, which is located
+in directory "../HOL/" 
+\lstinputlisting{../HOL/cipherScript.sml}
+
+\chapter{Source Code for cryptoExerciseScript.sml}
+\label{cha:source-code-sample}
+
+The following code is from \emph{cryptoExerciseScript.sml}, which is located
+in directory "../HOL/"
+\lstinputlisting{../HOL/cryptoExerciseScript.sml}
+
+
+\end{document}

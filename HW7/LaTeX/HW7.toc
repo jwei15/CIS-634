@@ -1,0 +1,39 @@
+\contentsline {chapter}{\numberline {1}Executive Summary}{3}{chapter.1}
+\contentsline {chapter}{\numberline {2}Exercise 11.6.1}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Problem Statement}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}Definition of \emph {APP}}{4}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Code for defining \emph {APP}}{4}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Session Transcript}{4}{subsection.2.2.2}
+\contentsline {section}{\numberline {2.3}Proof for \emph {LENGTH_APP}}{4}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Code for Proving \emph {LENGTH_APP}}{4}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Session Transcript}{5}{subsection.2.3.2}
+\contentsline {chapter}{\numberline {3}Exercise 11.6.2}{6}{chapter.3}
+\contentsline {section}{\numberline {3.1}Problem Statement}{6}{section.3.1}
+\contentsline {section}{\numberline {3.2}Definition of \emph {Map}}{6}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Code for Defining \emph {Map}}{6}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Session Transcript}{6}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Proof of \emph {Map_APP}}{6}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Code for Proving \emph {Map_APP}}{6}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Session Transcript}{7}{subsection.3.3.2}
+\contentsline {chapter}{\numberline {4}Exercise 11.6.3}{8}{chapter.4}
+\contentsline {section}{\numberline {4.1}Problem Statement}{8}{section.4.1}
+\contentsline {section}{\numberline {4.2}Definition of \emph {nexp}}{8}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Code for Defining \emph {nexp}}{8}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Session Transcript}{9}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Definition of \emph {nexpVal}}{9}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Code for Defining \emph {nexpVal}}{9}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Session Transcript}{9}{subsection.4.3.2}
+\contentsline {section}{\numberline {4.4}Proof of \emph {Add_0}}{9}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Code for Proving \emph {Add_0}}{9}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Session Transcript}{9}{subsection.4.4.2}
+\contentsline {section}{\numberline {4.5}Proof of \emph {Add_SYM}}{9}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}Code for Proving \emph {Add_SYM}}{9}{subsection.4.5.1}
+\contentsline {subsection}{\numberline {4.5.2}Session Transcript}{10}{subsection.4.5.2}
+\contentsline {section}{\numberline {4.6}Proof of \emph {Sub_0}}{10}{section.4.6}
+\contentsline {subsection}{\numberline {4.6.1}Code for Proving \emph {Sub_0}}{10}{subsection.4.6.1}
+\contentsline {subsection}{\numberline {4.6.2}Session Transcript}{10}{subsection.4.6.2}
+\contentsline {section}{\numberline {4.7}Proof of \emph {Mult_ASSOC}}{10}{section.4.7}
+\contentsline {subsection}{\numberline {4.7.1}Code for Proving \emph {Mult_ASSOC}}{10}{subsection.4.7.1}
+\contentsline {subsection}{\numberline {4.7.2}Session Transcript}{10}{subsection.4.7.2}
+\contentsline {chapter}{\numberline {A}Source Code for exTypeScript.sml}{11}{appendix.A}
+\contentsline {chapter}{\numberline {B}Source Code for nexpScript.sml}{12}{appendix.B}
