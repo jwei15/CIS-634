@@ -1,0 +1,41 @@
+\contentsline {chapter}{\numberline {1}Executive Summary}{4}{chapter.1}
+\contentsline {chapter}{\numberline {2}Exercise 10.13.1}{7}{chapter.2}
+\contentsline {section}{\numberline {2.1}Problem Statement}{7}{section.2.1}
+\contentsline {section}{\numberline {2.2}Forward Proofs}{7}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Relevant Codes}{7}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Session Transcript}{8}{subsection.2.2.2}
+\contentsline {section}{\numberline {2.3}Goal-oriented Proof with PROVE_TAC}{8}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Relevant Codes}{8}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Session Transcript}{8}{subsection.2.3.2}
+\contentsline {section}{\numberline {2.4}Goal-oriented Proof without PROVE_TAC}{8}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Relevant Code}{8}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Session Transcript}{9}{subsection.2.4.2}
+\contentsline {chapter}{\numberline {3}Exercise 13.10.2}{10}{chapter.3}
+\contentsline {section}{\numberline {3.1}Problem Statement}{10}{section.3.1}
+\contentsline {section}{\numberline {3.2}Forward Proof}{10}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Relevant Code}{10}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Session Transcript}{11}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Goal-oriented Proof with PROVE_TAC}{11}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Relevant Code}{11}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Session Transcript}{11}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Goal-oriented Proof without PROVE_TAC}{11}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Relevant Code}{11}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Session Transcript}{12}{subsection.3.4.2}
+\contentsline {chapter}{\numberline {4}Exercise 14.4.1}{13}{chapter.4}
+\contentsline {section}{\numberline {4.1}Problem Statement}{13}{section.4.1}
+\contentsline {section}{\numberline {4.2}Definitions on Datatypes}{13}{section.4.2}
+\contentsline {section}{\numberline {4.3}Proof on OpRuleLaunch}{13}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Relevant Code}{13}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Session Transcript}{14}{subsection.4.3.2}
+\contentsline {section}{\numberline {4.4}Proof on ApRuleActive}{15}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Relevant Code}{15}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Session Transcript}{16}{subsection.4.4.2}
+\contentsline {section}{\numberline {4.5}Proof on OpRuleAbort}{16}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}Relevant Code}{16}{subsection.4.5.1}
+\contentsline {subsection}{\numberline {4.5.2}Session Transcript}{17}{subsection.4.5.2}
+\contentsline {section}{\numberline {4.6}Proof on ApRuleStandDown}{17}{section.4.6}
+\contentsline {subsection}{\numberline {4.6.1}Relevant Code}{17}{subsection.4.6.1}
+\contentsline {subsection}{\numberline {4.6.2}Session Transcript}{18}{subsection.4.6.2}
+\contentsline {chapter}{\numberline {A}Source Code for example1Script.sml}{19}{appendix.A}
+\contentsline {chapter}{\numberline {B}Source Code for solutions1Script.sml}{25}{appendix.B}
+\contentsline {chapter}{\numberline {C}Source Code for conops0SolutionScript.sml}{28}{appendix.C}

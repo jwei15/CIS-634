@@ -1,0 +1,39 @@
+\documentclass[11pt, twoside]{article}
+\usepackage{holtex}
+
+\makeindex
+
+\begin{document}
+
+\input{HOLexampleOne}
+
+\tableofcontents
+\cleardoublepage
+\HOLpagestyle
+
+% ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+\section{example1 Theory}
+\index{example1 Theory@\textbf  {example1 Theory}}
+\begin{flushleft}
+\textbf{Built:} \HOLexampleOneDate \\[2pt]
+\textbf{Parent Theories:} aclDrules
+\end{flushleft}
+% ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+\subsection{Datatypes}
+\index{example1 Theory@\textbf  {example1 Theory}!Datatypes}
+% .....................................
+
+\HOLexampleOneDatatypes
+
+% No definitions
+
+\subsection{Theorems}
+\index{example1 Theory@\textbf  {example1 Theory}!Theorems}
+% .....................................
+
+\HOLexampleOneTheorems
+
+\HOLindex
+
+\end{document}

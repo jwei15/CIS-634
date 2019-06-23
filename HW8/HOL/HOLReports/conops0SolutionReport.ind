@@ -1,0 +1,11 @@
+\begin{theindex}
+
+  \item \textbf  {conops0Solution Theory}, 3
+    \subitem Datatypes, 3
+    \subitem Theorems, 3
+      \subsubitem ApRuleActive_thm, 3
+      \subsubitem ApRuleStandDown_thm, 3
+      \subsubitem OpRuleAbort_thm, 4
+      \subsubitem OpRuleLaunch_thm, 4
+
+\end{theindex}
