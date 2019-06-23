@@ -1,0 +1,344 @@
+\documentclass{report}
+
+
+\usepackage{634format}
+\usepackage{amsmath}
+
+\usepackage{listings}
+\usepackage{textcomp}
+
+\usepackage{hyperref}
+
+\usepackage{holtex}
+\usepackage{holtexbasic}
+\input{commands}
+
+\begin{document}
+\lstset{language = ML}
+
+\title{Project 2}
+\author{\textbf{Jinhao Wei}}
+\date{January 29, 2019}
+
+\maketitle{}
+
+\begin{abstract}
+This project is mainly a practice on programming in ML. In this project, we conducted several basic operations, such as pattern matching, in HOL. This report is basically a summary of each of the practice problems. For each of the problems, this report contains:
+\begin{itemize}
+\item Problem Statements
+\item Relevant Code
+\item Test Results (and Analysis)
+\end{itemize}
+
+
+
+In this report, we used several packages for formatting the document, including:
+\begin{itemize}
+\item a style file for the course, \emph{634format.sty}
+\item the \emph{listing} package for displaying and inputting ML source code
+\item \emph{holtex.sty} and \emph{holtexbasic.sty}, which was provided in professor Shiu-Kai Chin's sample report
+\end{itemize}
+
+\end{abstract}
+
+\begin{acknowledgments}
+This project followed Professor Shiu-Kai Chin's sample documents' format, and used multiple \emph{.sty} files, such as \emph{634format.sty}, \emph{holtex.sty}, \emph{holtexbasic.sty}, in Professor Shiu-Kai Chin's sample report.
+\end{acknowledgments}
+
+
+
+\tableofcontents{}
+\chapter{Executive Summary}
+\label{cha:Executive-Summary}
+
+\textbf{All requirements for this project are satisfied} Specifically,
+
+\begin{description}
+\item[Report Contents] \ \\
+This report consists of:
+
+\begin{enumerate}
+\item[] Chapter~\ref{cha:Executive-Summary}: Executive Summary
+\item[] Chapter~\ref{cha:exercise-2.5.1}: Exercise 2.5.1
+    \begin{enumerate}
+      \item[] Section~\ref{sec:2.5.1-problem-statement}: Problem Statement
+      \item[] Section~\ref{sec:2.5.1-relevant-code}: Relevant Code
+      \item[] Section~\ref{sec:2.5.1-test-results}: Test Results
+    \end{enumerate}
+
+
+\item[] Chapter~\ref{cha:exercise-3.4.1}
+\begin{enumerate}
+      \item[] Section~\ref{sec:3.4.1-problem-statement}: Problem Statement
+      \item[] Section~\ref{sec:3.4.1-relevant-code}: Relevant Code
+      \item[] Section~\ref{sec:3.4.1-test-results}: Test Results
+    \end{enumerate}
+\item[] Chapter~\ref{cha:exercise-3.4.2}
+\begin{enumerate}
+      \item[] Section~\ref{sec:3.4.2-problem-statement}: Problem Statement
+      \item[] Section~\ref{sec:3.4.2-relevant-code}: Relevant Code
+      \item[] Section~\ref{sec:3.4.2-test-results}: Test Results
+    \end{enumerate}
+     
+\item[] Appendix~\ref{appendix:A}: Source Code For Exercise 2.5.1
+\item[] Appendix~\ref{appendix:B}: Source Code For Exercise 3.4.1
+\item[] Appendix~\ref{appendix:C}: Source Code For Exercise 3.4.2 
+\end{enumerate}
+
+
+\item [Reproducibility in ML and \LaTeX]\ \\
+All ML and \LaTeX{} source files compile well on the environment provided by this course.
+\end{description}
+
+\chapter{Exercise 2.5.1}
+\label{cha:exercise-2.5.1}
+
+\section{Problem Statement}
+\label{sec:2.5.1-problem-statement}
+
+Our basic tasks in this problem are to:
+\begin{enumerate}
+\item Create a new \emph{.sml} file, which contains code and test cases
+\item Evaluate values using the function defined in code
+\end{enumerate}
+
+\subsection{Functions to implement}
+\label{subsec:2.5.1-functions-to-implement}
+
+Our basic goal in this exercise is to implement and test a function named \emph{timesPlus}, which takes in two integer values and returns a pair of integer values.
+
+\begin{align*}
+timesPlus~x~y = (x \times y, x+y)
+\end{align*}
+
+\subsection{Test cases}
+\label{subsec:2.5.1-test-cases}
+
+According to project requirements, we should run our functions on test cases below:
+\begin{lstlisting}[frame=TB]
+
+(******************************************************************************)
+(* Test Cases                                                                 *)
+(******************************************************************************)
+timesPlus 100 27;
+timesPlus 10 26;
+timesPlus 1 25;
+timesPlus 2 24;
+timesPlus 30 23;
+timesPlus 50 200;
+
+
+\end{lstlisting}
+
+
+\section{Relevant Code}
+\label{sec:2.5.1-relevant-code}
+
+We will define our function \emph{timesPlus} as below:
+
+\lstset{frameround = fttt}
+\begin{lstlisting}[frame= trBL]
+(*  Name: Jinhao Wei      *)
+(*  Email: jwei15@syr.edu *)
+fun timesPlus x y = (x*y, x+y);
+\end{lstlisting}
+
+\section{Test Results}
+\label{sec:2.5.1-test-results}
+
+If we send the above relevant code and test cases regions in the HOL, we will see a transcipt as below
+\setcounter{sessioncount}{0}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+---------------------------------------------------------------------
+       HOL-4 [Kananaskis 11 (stdknl, built Sat Aug 19 09:30:06 2017)]
+
+       For introductory HOL help, type: help "hol";
+       To exit type <Control>-D
+---------------------------------------------------------------------
+> > > > # # val timesPlus = fn: int -> int -> int * int
+> > # # # val it = (2700, 127): int * int
+> val it = (260, 36): int * int
+> val it = (25, 26): int * int
+> val it = (48, 26): int * int
+> val it = (690, 53): int * int
+> val it = (10000, 250): int * int
+> > 
+*** Emacs/HOL command completed ***
+
+> 
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\chapter{Exercise 3.4.1}
+\label{cha:exercise-3.4.1}
+\section{Problem Statement}
+\label{sec:3.4.1-problem-statement}
+In this problem, we focus on pattern matching in ML. We will use pattern matching to exact values from list and tuple. Our specific tasks are to produce expressions that
+
+\begin{enumerate}
+\item assign values to $listA$, a list of pairs
+\item assign values to $e1B$, a pair, and $listB$, a list of pairs
+\item assign values to $elC1$,  $elC1$, $elC2$, $elC3$, $elC4$ and $elC5$ as they are specified
+\end{enumerate}
+
+\section{Relevant Code}
+\label{sec:3.4.1-relevant-code}
+\lstset{frameround = ftttt, framexrightmargin = 0em}
+\begin{lstlisting}[frame = trBL]
+(****************************************************************************)
+(*        Exercise: 3.4.1                                                   *)
+(*        Author: Jinhao Wei                                                *)
+(*        Date: January 29, 2019                                            *)
+(****************************************************************************)
+val listA = [(0,"Alice"), (1, "Bob"), (3, "Carol"), (4,"Dan")];
+val elB::listB = listA;
+val (elC1, elC2) = elB;
+val (elC3::(elC4::(elC5::[]))) = listB;
+\end{lstlisting}
+
+\section{Test Results}
+\label{sec:3.4.1-test-results}
+If we send the above region to HOL,  we will see result as below:
+\setcounter{sessioncount}{0}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> > > > val listA = [(0, "Alice"), (1, "Bob"), (3, "Carol"), (4, "Dan")]:
+   (int * string) list
+val elB = (0, "Alice"): int * string
+val listB = [(1, "Bob"), (3, "Carol"), (4, "Dan")]: (int * string) list
+val elC1 = 0: int
+val elC2 = "Alice": string
+val elC3 = (1, "Bob"): int * string
+val elC4 = (3, "Carol"): int * string
+val elC5 = (4, "Dan"): int * string
+val it = (): unit
+> 
+*** Emacs/HOL command completed ***
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\chapter{Exercise 3.4.2}
+\label{cha:exercise-3.4.2}
+
+
+\section{Problem Statement}
+\label{sec:3.4.2-problem-statement}
+In this problem, we will set serveral values in emacs, and evaluate them respectively under HOL environment. Finally we will check and analyze the results.
+
+\section{Relevant Code}
+\label{sec:3.4.2-relevant-code}
+
+\lstset{frameround = ftttt, framexrightmargin = 0em}
+\begin{lstlisting}[frame = trBL]
+
+
+(****************************************************************************)
+(*  Exercise: 3.4.2                                                         *)
+(*  Author: Jinhao Wei                                                      *)
+(*  Date: January 29, 2019                                                  *)
+(****************************************************************************)
+
+val (x1,x2,x3) = (1,true,"Alice");
+val pair1 = (x1,x3);
+val list1 = [0,x1,2];
+val list2 = [x2,x1];
+(*The line above should fail*)
+(*x2 and x1 have different data type so they don't form a list*)
+
+val list3 = (1 :: [x3]);
+(*The line above should fail*)
+(*int value can't be inserted to the front of a char list*)
+\end{lstlisting}
+
+\section{Test Results and Analysis}
+\label{sec:3.4.2-test-results}
+
+According to the requirement, we should evaluate the values one by one and check the results. Therefore, I did not send the whole region to HOL, I ran each of them one after another.
+
+The first three evaluation was quite successful. The first case is just a simple pattern matching. The second case is a tuple which can receive any different data types. As for the third case, all items in the list have the same data type, so the evaluation was successful.
+\setcounter{sessioncount}{0}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> > > > val (x1,x2,x3) = (1,true,"Alice");
+val x1 = 1: int
+val x2 = true: bool
+val x3 = "Alice": string
+> 
+> val pair1 = (x1,x3);
+val pair1 = (1, "Alice"): int * string
+> 
+> val list1 = [0,x1,2];
+val list1 = [0, 1, 2]: int list
+> 
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\newpage
+The following case failed to be evaluated, this is because all elements in a list should have the same data type. Howerver, from previous calculation we know that $x1$ is of type \emph{int} while $x2$ is \emph{bool}. So they can not make a list.
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> val list2 = [x2,x1];
+poly: : error: Elements in a list have different types.
+   Item 1: x2 : bool
+   Item 2: x1 : int
+   Reason:
+      Can't unify bool (*In Basis*) with int (*In Basis*)
+         (Different type constructors)
+Found near [x2, x1]
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+The following case also failed, this is because $1$ is a data of type \emph{int} while $[x3]$ is a list of \emph{string}. Therefore the calculation failed.  
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> 
+> val list3 = (1 :: [x3]);
+poly: : error: Type error in function application.
+   Function: :: : int * int list -> int list
+   Argument: (1, [x3]) : int * string list
+   Reason:
+      Can't unify int (*In Basis*) with string (*In Basis*)
+         (Different type constructors)
+Found near (1 :: [x3])
+Static Errors
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\appendix{}
+\chapter{Source Code for Exercise 2.5.1}
+\label{appendix:A}
+The following code is from \emph{ex-2-5-1.sml}
+\lstinputlisting{./ML/ex-2-5-1.sml}
+\chapter{Source Code for Exercise 3.4.1}
+\label{appendix:B}
+The following code is from \emph{ex-3-4-1.sml}
+\lstinputlisting{./ML/ex-3-4-1.sml}
+\chapter{Source Code for Exercise 3.4.2}
+\label{appendix:C}
+The following code is from \emph{ex-3-4-2.sml}
+\lstinputlisting{./ML/ex-3-4-2.sml}
+\end{document}

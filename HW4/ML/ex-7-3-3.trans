@@ -1,0 +1,8 @@
+> > > > # # # # # # # # # ** types trace now on
+> # # # # # # # # # ** Unicode trace now off
+> # # # # # # # val notExists = fn: term -> term
+> > <<HOL message: inventing new type variable names: 'a>>
+val it =
+   ``!(z :'a). ~(Q :'a -> bool) z``:
+   term
+> 

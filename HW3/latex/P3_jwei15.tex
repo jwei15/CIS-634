@@ -1,0 +1,648 @@
+\documentclass{report}
+
+\usepackage{634format}
+\usepackage{amsmath}
+
+\usepackage{listings}
+\usepackage{textcomp}
+
+\usepackage{hyperref}
+
+\usepackage{holtex}
+\usepackage{holtexbasic}
+\input{commands}
+
+\lstset{language = ML}
+
+\title{Project 3}
+\author{\textbf{Jinhao Wei}}
+\date{Feburary 1, 2019}
+
+\begin{document}
+\maketitle{}
+
+\begin{abstract}
+This report provides solutions to problems in Project 3. Project 3 is a set of problems that are involved with ML programming. Within this problem set, higher order functions in ML are applied. For each of the problems, our report includes:
+
+\begin{itemize}
+\item Problem Statement 
+\item Relevant Code
+\item Test Cases, Transcripts and Explanations
+\end{itemize}
+
+\end{abstract}
+
+\begin{acknowledgments}
+This project report follows the format of document \emph{project2ExampleReport.pdf} provided by Professor \textbf{Shiu-Kai Chin}. Also, this report used package \emph{634format.sty}, \emph{holtex} and \emph{holtexbasic} for formatting's purpose.
+\end{acknowledgments}
+
+\tableofcontents{}
+\chapter{Executive Summary}
+\label{cha:Executive-Summary}
+
+\textbf{All requirements for this project are satisfied} Specifically,
+
+\begin{description}
+\item[Report Contents] \ \\
+This report consists of:
+
+\begin{enumerate}
+\item[] Chapter~\ref{cha:Executive-Summary}: Executive Summary
+\item[] Chapter~\ref{cha:4.6.3}: Exercise 4.6.3
+    \begin{enumerate}
+      \item[] Section~\ref{sec:4.6.3-problem-statement}: Problem Statement
+      \item[] Section~\ref{sec:4.6.3-relevant-code}: Relevant Code
+      \item[] Section~\ref{sec:4.6.3-test-cases}: Test Results
+    \end{enumerate}
+
+
+\item[] Chapter~\ref{cha:exercise-4.6.4} Exercise 4.6.4
+\begin{enumerate}
+      \item[] Section~\ref{sec:4.6.4-problem-statement}: Problem Statement
+      \item[] Section~\ref{sec:4.6.4-relevant-code} Relevant Code
+      \item[] Section~\ref{sec:4.6.4-test}: Test Results
+    \end{enumerate}
+\item[] Chapter~\ref{cha:exercise-5.3.4} Exercise 5.3.4
+\begin{enumerate}
+      \item[] Section~\ref{sec:5.3.4-problem-statement}: Problem Statement
+      \item[] Section~\ref{sec:5.3.4-relevant-code}: Relevant Code
+      \item[] Section~\ref{sec:5.3.4-test}: Test Results
+    \end{enumerate}
+\item[] Chapter~\ref{cha:exercise-5.3.5} Exercise 5.3.5
+\begin{enumerate}
+      \item[] Section~\ref{sec:5.3.5-problem-statement}: Problem Statement
+      \item[] Section~\ref{sec:5.3.5-relevant-code}: Relevant Code
+      \item[] Section~\ref{sec:5.3.5-test}: Test Results
+    \end{enumerate}
+     
+\item[] Appendix~\ref{appendix:A}: Source Code For Exercise 4.6.3
+\item[] Appendix~\ref{appendix:B}: Source Code For Exercise 4.6.4
+\item[] Appendix~\ref{appendix:C}: Source Code For Exercise 5.3.4 
+\item[] Appendix~\ref{appendix:D}: Source Code For Exercise 5.3.5
+\end{enumerate}
+
+\item [Reproducibility in ML and \LaTeX]\ \\
+All ML and \LaTeX{} source files compile well on the environment provided by this course.
+\end{description}
+
+\chapter{Exercise 4.6.3}
+\label{cha:4.6.3}
+
+\section{Problem Statement}
+\label{sec:4.6.3-problem-statement}
+
+In this problem, we will define several ML functions in two different ways. 
+
+\section{Relevant Code}
+\label{sec:4.6.3-relevant-code}
+\lstset{frameround = ftttt, framexrightmargin = 0em}
+\begin{lstlisting}[frame = trBL]
+val funA1 = fn (x,y,z) => x + y + z;                                       
+fun funA2 (x, y, z) = x + y + z; 
+
+val funB1 = fn x => (fn y => (x < y) );
+fun funB2 x y = (x<y);
+
+val funC1 = fn x => (fn y => (x^y));
+fun funC2 x y = x^y;
+
+val funD1 = fn x => (fn y => (x@y));
+fun funD2 x y = x@y;
+
+val funE1 = fn (x, y) => (if x > y then x else y);
+fun funE2 (x, y) = if x > y then x else y;
+
+\end{lstlisting}
+
+\section{Test Cases, Execution Transcripts and Explanations}
+\label{sec:4.6.3-test-cases}
+According to the requirements, we should run several test cases in HOL window. Before we run the test cases, let's introduce some test functions. We will begin from \emph{test463A} and \emph{test463B}. 
+
+\subsection{Function test463A and test463B}
+\label{subsec:test463A-and-test463B}
+
+\emph{test463A} is a function that compares the running result of \emph{map f1 inList} and \emph{map f2 inList}. If the two results have the same value, then the return value of \emph{test463A} is \emph{True}, otherwise \emph{False} will be returned.
+
+\begin{lstlisting}[frame=TB]
+fun test463A f1 f2 inList =
+let
+ val list1 = map f1 inList
+ val list2 = map f2 inList
+in
+ foldr
+ (fn (x,y)  => (x andalso y))
+ true
+ (ListPair.map (fn (x,y) => x = y) (list1,list2))
+end;
+\end{lstlisting}
+
+
+\emph{test463B} is a function that compares the running result of \emph{map (f2P f1) inList} and \emph{map (f2P f2) inList}. If the two results are the same, then \emph{True} will be returned, otherwise the return value will be \emph{False}. 
+
+\begin{lstlisting}[frame = TB]
+fun f2P f (x,y) = f x y
+
+fun test463B f1 f2 inList =
+let
+ val list1 = map (f2P f1) inList
+ val list2 = map (f2P f2) inList
+in
+ foldr
+ (fn (x,y)  => (x andalso y))
+ true
+ (ListPair.map (fn (x,y) => x = y) (list1,list2))
+end;
+\end{lstlisting}
+
+What is different from \emph{test463A} and \emph{test463B} is that, the parameters that \emph{test463A} accepts may vary, depending on how \emph{f1} and \emph{f2} are defined, while \emph{test463B} will only accept a list of int*int, given the definition of \emph{f2P}.
+
+Now we are ready for our test cases:
+
+\subsection{Question 4.6.3.A}
+\label{subsec:test-4.6.3.A}
+
+In this section, we will introduce two functions \emph{funA1} and \emph{funA2}, each of them will take a tuple of three integers and return the sum of them.
+\begin{lstlisting}[frame = TB]
+(**********)
+(* Part A *)
+(**********)
+
+(* ========================================================================== *)
+(*                                                                            *)
+(* Add your code for funA1 and funA2 here.                                    *)
+(*                                                                            *)
+(* ========================================================================== *)
+val funA1 = fn (x,y,z) => x + y + z;                                       
+fun funA2 (x, y, z) = x + y + z; 
+
+val testListA = [(1,2,3),(4,5,6),(7,8,9)]
+
+val outputsA = map funA2 testListA
+
+val testResultA = test463A funA1 funA2 testListA
+\end{lstlisting}
+
+
+If we send the above region to HOL,  we will have the transcript as below. From the transcript we can see that the return value \emph{testResultA} is \emph{True}. That means \emph{funA1} and \emph{funA2} had generated the same value from input list \emph{testListA}, therefore we could know that \emph{funA1} and \emph{funA2} are equivalent.
+
+\setcounter{sessioncount}{0}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> > # # # # # # # # # val test463A = fn: ('a -> ''b) -> ('a -> ''b) -> 'a list -> bool
+> > # # # # # # # # # # # val f2P = fn: ('a -> 'b -> 'c) -> 'a * 'b -> 'c
+val test463B = fn:
+   ('a -> 'b -> ''c) -> ('a -> 'b -> ''c) -> ('a * 'b) list -> bool
+> val funA1 = fn: int * int * int -> int
+> val funA2 = fn: int * int * int -> int
+> > > # # # # val outputsA = [6, 15, 24]: int list
+val testListA = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]: (int * int * int) list
+val testResultA = true: bool
+> 
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\subsection{Question 4.6.3.B}
+\label{subsec:test-4.6.3.B}
+For the second part, 
+\begin{lstlisting}[frame = TB]
+(**********)
+(* Part B *)
+(**********)
+
+(* ========================================================================== *)
+(*                                                                            *)
+(* Add your code for funB1 and funB2 here.                                    *)
+(*                                                                            *)
+(* ========================================================================== *)
+val funB1 = fn x => (fn y => (x < y) );
+fun funB2 x y = (x<y);
+
+val testListB = [(0,0),(1,2),(4,3)]
+
+val outputsB = map (f2P funB1) testListB
+
+val testResultB = test463B funB1 funB2 testListB
+\end{lstlisting}
+
+From the code above we can see that \emph{funB1} and \emph{funB2} are two functions that compares two integers. If the first interger is smaller than the second integer, then the return value is \emph{True}, otherwise the return value is \emph{False}.
+
+If we send the above region to HOL, we will have the transcript as below. From the return value of \emph{testResultB} we could know that \emph{funB1} and \emph{funB2} are identical.
+
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> > > # # # # val outputsA = [6, 15, 24]: int list
+val testListA = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]: (int * int * int) list
+val testResultA = true: bool
+> val funB1 = fn: int -> int -> bool
+val funB2 = fn: int -> int -> bool
+val outputsB = [false, true, false]: bool list
+val testListB = [(0, 0), (1, 2), (4, 3)]: (int * int) list
+val testResultB = true: bool
+val it = (): unit
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\subsection{Question 4.6.3.C}
+\label{subsec: test-4.6.3.C}
+
+From the code below we know that \emph{funC1} and \emph{funC2} are both functions that receive two strings, concatentate the second string after the first string, and return the concatentation.
+
+\begin{lstlisting}[frame = TB]
+
+(**********)
+(* Part C *)
+(**********)
+
+(* ========================================================================== *)
+(*                                                                            *)
+(* Add your code for funC1 and funC2 here.                                    *)
+(*                                                                            *)
+(* ========================================================================== *)
+val funC1 = fn x => (fn y => (x^y));
+fun funC2 x y = x^y;
+
+val testListC = [("Hi"," there!"),("Oh ","no!"),("What"," the ...")]
+
+val outputsC = map (f2P funC1) testListC
+
+val testResultC = test463B funC1 funC2 testListC
+
+\end{lstlisting}
+
+If we put the above region to HOL, we will see transcript as below:
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+val funC1 = fn: string -> string -> string
+val funC2 = fn: string -> string -> string
+val outputsC = ["Hi there!", "Oh no!", "What the ..."]: string list
+val testListC = [("Hi", " there!"), ("Oh ", "no!"), ("What", " the ...")]:
+   (string * string) list
+val testResultC = true: bool
+val it = (): unit
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+The return value of \emph{testResultC} is true, therefore we could know that \emph{funC1} AND \emph{funC2} are identical.
+
+\subsection{Question 4.6.3.D}
+\label{subsec:test-4.6.3-D}
+From the code below we know that \emph{funD1} and \emph{funD2} are two functions that receive two lists, append the second list to the end of the first list, and return the appended list as result.
+
+\begin{lstlisting}[frame = TB]
+(**********)
+(* Part D *)
+(**********)
+
+(* ========================================================================== *)
+(*                                                                            *)
+(* Add your code for funD1 and funD2 here.                                    *)
+(*                                                                            *)
+(* ========================================================================== *)
+
+val funD1 = fn x => (fn y => (x@y));
+fun funD2 x y = x@y;
+
+val testListD1 = [([0,1],[2,3,4]),([],[0,1])]
+val testListD2 = [([true,true],[])]
+
+val outputsD1 = map (f2P funD1) testListD1
+val outputsD2 = map (f2P funD2) testListD2
+
+val testResultD1 = test463B funD1 funD2 testListD1
+val testResultD2 = test463B funD1 funD2 testListD2
+\end{lstlisting}
+
+By putting the above region to HOL, we have the transcript as below. Both \emph{testResultD1} and \emph{testResultD2} are returned with value \emph{true}. Therefore we know that we have made \emph{funD1} and \emph{funD2} identical.
+
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> val funD1 = fn: 'a list -> 'a list -> 'a list
+val funD2 = fn: 'a list -> 'a list -> 'a list
+val outputsD1 = [[0, 1, 2, 3, 4], [0, 1]]: int list list
+val outputsD2 = [[true, true]]: bool list list
+val testListD1 = [([0, 1], [2, 3, 4]), ([], [0, 1])]:
+   (int list * int list) list
+val testListD2 = [([true, true], [])]: (bool list * 'a list) list
+val testResultD1 = true: bool
+val testResultD2 = true: bool
+val it = (): unit
+> 
+*** Emacs/HOL command completed ***
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\subsection{Question 4.6.3.E}
+\label{subsec:test-4.6.3-E}
+\emph{funE1} and \emph{funE2} are functions that both return the greater value in a interger tuple.
+
+\begin{lstlisting}[frame = TB]
+(**********)
+(* Part E *)
+(**********)
+
+(* ========================================================================== *)
+(*                                                                            *)
+(* Add your code for funE1 and funE2 here.                                    *)
+(*                                                                            *)
+(* ========================================================================== *)
+
+val funE1 = fn (x, y) => (if x > y then x else y);
+fun funE2 (x, y) = if x > y then x else y;
+
+val testListE = [(2,1),(5,5),(5,10)]
+
+val sampleResultE = map funE1 testListE
+
+val testResultE = test463A funE1 funE2 testListE
+\end{lstlisting}
+
+By sending the above region to HOL we receive the transcript as below. From the return value of \emph{testResultE} we could know that \emph{funE1} and \emph{funE2} are identical.
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> val funE1 = fn: int * int -> int
+val funE2 = fn: int * int -> int
+val sampleResultE = [2, 5, 10]: int list
+val testListE = [(2, 1), (5, 5), (5, 10)]: (int * int) list
+val testResultE = true: bool
+val it = (): unit
+> 
+*** Emacs/HOL command completed ***
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\chapter{Exercise 4.6.4}
+\label{cha:exercise-4.6.4}
+
+\section{Problem Statement}
+\label{sec:4.6.4-problem-statement}
+This problem asks us to define a function named \emph{listSquares}, which returns a list of the squares of each item in the input list. We are required to use \emph{let} expression in ML.
+
+\section{Relevant Code}
+\label{sec:4.6.4-relevant-code}
+
+\lstset{frameround = ftttt, framexrightmargin = 0em}
+\begin{lstlisting}[frame = trBL]
+fun listSquares  [] = []
+    | listSquares (x::xs) =
+      let
+	fun square x = x*x
+      in
+	(square x) :: listSquares xs
+      end;
+\end{lstlisting}
+
+\section{Test Cases, Execution Transcripts and Explanations}
+\label{sec:4.6.4-test}
+
+\subsection{Test Cases}
+\label{subsec:4.6.4-test-cases}
+
+\begin{lstlisting}[frame = TB]
+(******************************************************************************)
+(* Exercise 4.6.4                                                             *)
+(* Author: Shiu-Kai Chin                                                      *)
+(* Date: 20 September 2015                                                    *)
+(******************************************************************************)
+
+(* ========================================================================== *)
+(*                                                                            *)
+(* Your code for listSquares here                                             *)
+(*                                                                            *)
+(* ========================================================================== *)
+
+fun listSquares  [] = []
+    | listSquares (x::xs) =
+      let
+	fun square x = x*x
+      in
+	(square x) :: listSquares xs
+      end;
+
+
+val testList = [1,2,3,4,5]
+
+val testResults = listSquares testList
+\end{lstlisting}
+
+
+\subsection{Execution Transcripts}
+\label{subsec:4.6.3-execution-transcripts}
+
+\setcounter{sessioncount}{0}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> # # # # # # val listSquares = fn: int list -> int list
+> # # val testList = [1, 2, 3, 4, 5]: int list
+val testResults = [1, 4, 9, 16, 25]: int list
+> 
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\subsection{Explanations}
+\label{subsec:4.6.3-explanations}
+
+From the definition in \ref{sec:4.6.4-relevant-code} we could see that, when the received parameter is an empty list \emph{[]}, then the return value is also a \emph{[]}. When the parameter is a non-empty list, then we use a \emph{let} expression to define a function named \emph{square} to return the square of a integer value. Later, we apply this function \emph{square} in our recursive definition of \emph{listSquares}. So we can return the correct result.
+
+
+\chapter{Exercise 5.3.4}
+\label{cha:exercise-5.3.4}
+
+\section{Problem Statement}
+\label{sec:5.3.4-problem-statement}
+In this problem, we will manually define a function \emph{Filter}, which is identical to \emph{filter}.
+
+\section{Relevant Code}
+\label{sec:5.3.4-relevant-code}
+
+\lstset{frameround = ftttt, framexrightmargin = 0em}
+\begin{lstlisting}[frame = trBL]
+fun Filter func [] = []
+       |Filter func (x::xs) = if (func x) then (x :: Filter func xs)
+          else (Filter func xs) 
+\end{lstlisting} 
+
+
+
+\section{Test Cases, Execution Transcripts and Explanations }
+\label{sec:5.3.4-test}
+
+\subsection{Test Cases}
+\label{subsec:5.3.4-test-cases}
+
+According to the requirement, we will run test cases in both 5-3-4Test.sml and in exercise 5.3.3.
+
+\begin{lstlisting}[frame = TB]
+(******************************************************************************)
+(* Exercise 5.3.4                                                             *)
+(* Author: Shiu-Kai Chin                                                      *)
+(* Date: 20 September 2015                                                    *)
+(******************************************************************************)
+
+(* ========================================================================== *)
+(*                                                                            *)
+(* Your code for Filter here                                                  *)
+(*                                                                            *)
+(* ========================================================================== *)
+fun Filter func [] = []
+       |Filter func (x::xs) = if (func x) then (x :: Filter func xs)
+       	       else (Filter func xs) ;
+
+val testResults = Filter (fn x => x < 5) [1,2,3,4,5,6,7,8,9];
+
+val testResults_filter = filter(fn x => x < 5) [1,2,3,4,5,6,7,8,9];
+
+val testResults_5_3_3 = Filter (fn x => x < 5) [4, 6];
+
+val testResults_filter_5_3_3 = filter (fn x => x < 5) [4, 6];
+\end{lstlisting}
+
+\subsection{Execution Transcripts}
+\label{subsec:5.3.4-execution-transcripts}
+
+\setcounter{sessioncount}{0}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> # # val Filter = fn: ('a -> bool) -> 'a list -> 'a list
+> > val testResults = [1, 2, 3, 4]: int list
+> > val testResults_filter = [1, 2, 3, 4]: int list
+> > val testResults_5_3_3 = [4]: int list
+> > val testResults_filter_5_3_3 = [4]: int list
+> 
+*** Emacs/HOL command completed ***
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\subsection{Explanations}
+\label{subsec:5.3.4-explanations}
+
+From the recursive definition in \ref{sec:5.3.4-relevant-code}, we can see that \emph{Filter} can take in a function \emph{func} and a list. If the list is an empty list \emph{[]}, then the return value will be an empty list. Otherwise, the list can be interrepted as \emph{x::xs}, then \emph{func} will be applied on \emph{x}, if the return value is \emph{true}, then we return \emph{x::Filter func xs}, if the return value is \emph{false} we return \emph{Filter func xs}.
+
+
+\chapter{Exercise 5.3.5}
+\label{cha:exercise-5.3.5}
+
+\section{Problem Statement}
+\label{sec:5.3.5-problem-statement}
+In this problem, we are requried to define a function \emph{addPairsGreaterThan n l}, which takes in a integer \emph{n} and a list of tuple \emph{l}. If the input tuple list \emph{l} is empty, then the return value of \emph{addPairsGreaterThan n l} will be an empty list. Otherwise, the return value will be a list of the sums of those tuple whose values are all greater than \emph{n}.
+
+\section{Relevant Code}
+\label{sec:5.3.5-relevant-code}
+\lstset{frameround = fttt}
+\begin{lstlisting}[frame = trBL]
+fun addPairsGreaterThan n [] = []
+    | addPairsGreaterThan n (x :: xs) =
+      let
+	fun GreaterThan n (x, y) = x > n andalso y>n
+	fun sum (x, y) = x + y
+      in 
+      	if GreaterThan n x then (sum x :: addPairsGreaterThan n xs)
+            else (addPairsGreaterThan n xs)
+      end;
+\end{lstlisting}
+
+
+\section{Test Cases, Execution Transcripts and Explanations}
+\label{sec:5.3.5-test}
+
+\subsection{Test Cases}
+\label{subsec:5.3.5-test-cases}
+\begin{lstlisting}[frame = TB]
+(******************************************************************************)
+(* Exercise 5.3.5                                                             *)
+(* Author: Shiu-Kai Chin                                                      *)
+(* Date: 20 September 2015                                                    *)
+(******************************************************************************)
+
+(* ========================================================================== *)
+(*                                                                            *)
+(* Your code for addPairsGreaterThan here                                     *)
+(*                                                                            *)
+(* ========================================================================== *)
+
+fun addPairsGreaterThan n [] = []
+    | addPairsGreaterThan n (x :: xs) =
+      let
+	fun GreaterThan n (x, y) = x > n andalso y>n
+	fun sum (x, y) = x + y
+      in 
+      	if GreaterThan n x then (sum x :: addPairsGreaterThan n xs)
+            else (addPairsGreaterThan n xs)
+      end;
+
+addPairsGreaterThan 0 [(0,1),(2,0),(2,3),(4,5)];
+\end{lstlisting}
+
+
+\subsection{Execution Transcripts}
+\setcounter{sessioncount}{0}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> # # # # # # # # val addPairsGreaterThan = fn: int -> (int * int) list -> int list
+> 
+*** Emacs/HOL command completed ***
+
+> val it = [5, 9]: int list
+val it = (): unit
+> 
+*** Emacs/HOL command completed ***
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\subsection{Explanations}
+\label{subsec:5.3.5-explanations}
+
+From the definition in \ref{sec:5.3.5-relevant-code} we could see, if the input list is an empty list, then the return value is also an empty list. In other case, we will use a recursive definiton on \emph{addPairsGreaterThan}. We use \emph{let} expression to define two functions \emph{GreaterThan n} and \emph{sum (x,y)}. Later, we will recursively check each tuple in the list and decide wheter we should insert its sum to the returned list.
+
+
+
+
+
+\appendix{}
+\chapter{Source Code for Exercise 4.6.3}
+\label{appendix:A}
+The following code is from \emph{ex-4-6-3.sml}
+\lstinputlisting{../ML/ex-4-6-3/ex-4-6-3.sml}
+\chapter{Source Code for Exercise 4.6.4}
+\label{appendix:B}
+The following code is from \emph{ex-4-6-4.sml}
+\lstinputlisting{../ML/ex-4-6-4/ex-4-6-4.sml}
+\chapter{Source Code for Exercise 5.3.4}
+\label{appendix:C}
+The following code is from \emph{ex-5-3-4.sml}
+\lstinputlisting{../ML/ex-5-3-4/ex-5-3-4.sml}
+
+\chapter{Source Code for Exercise 5.3.5}
+\label{appendix:D}
+The following code is from \emph{ex-5-3-5.sml}
+\lstinputlisting{../ML/ex-5-3-5/ex-5-3-5.sml}
+
+\end{document}

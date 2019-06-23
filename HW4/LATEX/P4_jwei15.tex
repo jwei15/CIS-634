@@ -1,0 +1,514 @@
+\documentclass{report}
+
+
+\usepackage{634format}
+\usepackage{amsmath}
+
+\usepackage{listings}
+\usepackage{textcomp}
+
+\usepackage{hyperref}
+
+\usepackage{holtex}
+\usepackage{holtexbasic}
+
+\usepackage{amsmath}
+\input{commands}
+
+\begin{document}
+\lstset{language = ML}
+
+\title{Project 4}
+\author{\textbf{Jinhao Wei}}
+\date{Feb 9, 2019}
+
+\maketitle{}
+
+\begin{abstract}
+This project is mainly a practice on programming in HOL. In this project, we attempted higher order logics in HOL. We provided solutions for several problems, including problems on:
+\begin{enumerate}
+\item HOL expressions that are equivalent to ACL semantics or standard notations. 
+\item HOL functions that operates on HOL terms.
+\end{enumerate}
+
+ For each of the problems, this report contains:
+\begin{itemize}
+\item Problem Statements
+\item Relevant Code
+\item Execution Transcripts of Test Cases
+\end{itemize}
+
+\end{abstract}
+
+\begin{acknowledgments}
+This project followed Professor Shiu-Kai Chin's sample documents' format, and used multiple \emph{.sty} files, such as \emph{634format.sty}, \emph{holtex.sty}, \emph{holtexbasic.sty}, which were provided in Professor Shiu-Kai Chin's sample report. What's more, this report inherits \emph{P2_jwei15.tex}, a file that I had created while working on Project2, so I can save some time on formatting.
+\end{acknowledgments}
+
+
+
+\tableofcontents{}
+\chapter{Executive Summary}
+\label{cha:Executive-Summary}
+
+\textbf{All requirements for this project are satisfied} Specifically,
+
+\begin{description}
+\item[Report Contents] \ \\
+This report consists of:
+
+\begin{enumerate}
+\item[] Chapter~\ref{cha:Executive-Summary}: Executive Summary
+\item[] Chapter~\ref{cha:exercise-6.2.1}: Exercise 6.2.1
+    \begin{enumerate}
+      \item[] Section~\ref{sec:6.2.1-problem-statement}: Problem Statement
+      \item[] Section~\ref{sec:6.2.1-relevant-code}: Relevant Code
+      \item[] Section~\ref{sec:6.2.1-test-cases}: Execution Transcripts of Test Cases
+    \end{enumerate}
+
+
+\item[] Chapter~\ref{cha:exercise-7.3.1}: Exercise 7.3.1
+\begin{enumerate}
+      \item[] Section~\ref{sec:7.3.1-problem-statement}: Problem Statement
+      \item[] Section~\ref{sec:7.3.1-relevant-code}: Relevant Code
+      \item[] Section~\ref{sec:7.3.1-test-cases}: Execution Transcripts of Test Cases
+    \end{enumerate}
+\item[] Chapter~\ref{cha:exercise-7.3.2}: Exercise 7.3.2
+\begin{enumerate}
+      \item[] Section~\ref{sec:7.3.2-problem-statement}: Problem Statement
+      \item[] Section~\ref{sec:7.3.2-relevant-code}: Relevant Code
+      \item[] Section~\ref{sec:7.3.2-test-cases}: Execuion Transcripts of Test Cases
+    \end{enumerate}
+
+\item[] Chapter~\ref{cha:exercise-7.3.3}: Exercise 7.3.3
+\begin{enumerate}
+      \item[] Section~\ref{sec:7.3.3-problem-statement}: Problem Statement
+      \item[] Section~\ref{sec:7.3.3-relevant-code}: Relevant Code
+      \item[] Section~\ref{sec:7.3.3-test-cases}: Execution Transcripts of Test Cases
+    \end{enumerate}
+     
+\item[] Appendix~\ref{appendix:A}: Source Code For Exercise 6.2.1
+\item[] Appendix~\ref{appendix:B}: Source Code For Exercise 7.3.1
+\item[] Appendix~\ref{appendix:C}: Source Code For Exercise 7.3.2
+\item[] Appendix~\ref{appendix:D}: Source Code For Exercise 7.3.3
+\end{enumerate}
+
+
+\item [Reproducibility in ML and \LaTeX]\ \\
+All ML and \LaTeX{} source files compile well on the environment provided by this course.
+\end{description}
+
+\chapter{Exercise 6.2.1}
+\label{cha:exercise-6.2.1}
+
+\section{Problem Statement}
+\label{sec:6.2.1-problem-statement}
+
+Our basic task in this problem is to write HOL codes that are equivalent to ACL semantics or standard notations. We will also print and observe the result of each piece of code. 
+
+There are no extra test cases required in this exercise problem.
+
+
+\section{Relevant Code}
+\label{sec:6.2.1-relevant-code}
+
+We will define each of our functions as below:
+
+\lstset{frameround = fttt}
+\begin{lstlisting}[frame= trBL]
+(*  6.2.1.1  *)
+``P x ==> Q y``;
+
+(*  6.2.1.2  *)
+``P (x:num) ==> Q (y:bool)``;
+``P x ==> Q y``;
+
+(*  6.2.1.3  *)
+``!x y.P x ==> Q y``;
+
+(*  6.2.1.4  *)
+``?(x:num).R(x:'a)``;
+
+(*  6.2.1.5  *)
+``~(!x.(P x) \/ (Q x)) = ?x.(~(P x)) /\ (~(Q x))``;
+
+(*  6.2.1.6  *)
+``!x.(P x ==> M x)``;
+
+(*  6.2.1.7  *)
+``?x.P x /\ Funny x``;
+\end{lstlisting}
+
+
+\section{Execution Transcripts of Test Cases}
+\label{sec:6.2.1-test-cases}
+
+Exercise 6.2.1 did not provide extra test cases, so we simply send each piece of the relevant codes to the HOL, and we will see results as below:
+
+\subsection{Question 6.2.1.1}
+
+In this question, we will write HOL codes that are equivalent to semantic ${P(x) \supset Q(y)}$. 
+\lstset{frameround = fttt}
+\begin{lstlisting}[frame= trBL]
+(*  6.2.1.1  *)
+``P x ==> Q y``;
+\end{lstlisting}
+
+The code above will give us the execution transcript as below:
+\setcounter{sessioncount}{0}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+ > # <<HOL message: inventing new type variable names: 'a, 'b>>
+val it =
+   ``(P :'a -> bool) (x :'a) ==> (Q :'b -> bool) (y :'b)``:
+   term
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\subsection{Question 6.2.1.2}
+
+In this question, we will constrain the data types in the previous question. Specifically, we will constrain $x$ to \emph{num} type and $y$ to \emph{bool} type. Then we will compare the running result of this "restrained" statement and last exercise's "default" statement.
+\lstset{frameround = fttt}
+\begin{lstlisting}[frame= trBL]
+(*  6.2.1.2  *)
+``P (x:num) ==> Q (y:bool)``;
+``P x ==> Q y``;
+\end{lstlisting}
+
+From the transcript below we could see that in the first evaluation, $x$ is of type \emph{num} and $y$ is of type \emph{bool}. Function $P$ is a mapping from type \emph{num} to \emph{bool} and $Q$ is a mapping from type \emph{bool} to type \emph{bool}. In the second evaluation, $x$ is of type $'a$ and $y$ is of type $'b$. Function $P$ is a mapping from type $'a$ to type \emph{bool} and $Q$ is a mapping from type $'b$ to type \emph{bool}.
+\setcounter{sessioncount}{1}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> # val it =
+   ``(P :num -> bool) (x :num) ==> (Q :bool -> bool) (y :bool)``:
+   term
+> <<HOL message: inventing new type variable names: 'a, 'b>>
+val it =
+   ``(P :'a -> bool) (x :'a) ==> (Q :'b -> bool) (y :'b)``:
+   term
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\subsection{Question 6.2.1.3}
+In this question, we will attempt to write codes that are equivalent to a "forall" statement $\forall x, y. P (x) \supset Q (y)$.
+
+\lstset{frameround = fttt}
+\begin{lstlisting}[frame= trBL]
+(*  6.2.1.3  *)
+``!x y.P x ==> Q y``;
+\end{lstlisting}
+
+If we send the above region to HOL window, we will see transcript as below:
+\setcounter{sessioncount}{2}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> > # <<HOL message: inventing new type variable names: 'a, 'b>>
+val it =
+   ``!(x :'a) (y :'b). (P :'a -> bool) x ==> (Q :'b -> bool) y``:
+   term
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\subsection{Question 6.2.1.4}
+
+In this question, we will attempt to constrain $x$ to type \emph{num} but call it as a data of type $'a$. 
+
+\lstset{frameround = fttt}
+\begin{lstlisting}[frame= trBL]
+(*  6.2.1.4  *)
+``?(x:num).R(x:'a)``;
+\end{lstlisting}
+
+
+If we send the above region to HOL, we will see transcript as below(line numbers and character numbers may change, due to different HOL windows). This is because we had previously constrained $x$ to type \emph{num} but later re-constrained it to type \emph{'a}. Therefore the type inference fails.
+
+\setcounter{sessioncount}{3}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> # 
+Type inference failure: the term
+
+(x :num)
+
+on line 12, characters 13-17
+
+can not be constrained to be of type
+
+:'a
+
+unification failure message: ???
+Exception-
+   HOL_ERR
+     {message =
+      "on line 12, characters 13-17:\n\nType inference failure: the term\n\n(x :num)\n\non line 12, characters 13-17\n
+\ncan not be constrained to be of type\n\n:'a\n\nunification failure message: ???\n",
+      origin_function = "type-analysis", origin_structure = "Preterm"} raised
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\subsection{Question 6.2.1.5}
+
+In this question, we will attempt to implement a HOL equivalent statement. We will use HOL to show that "not all $x$ satisfies either $P(x)$ or $Q(x)$" is equivalent to "there exists some $x$, that does not satisfy either $P(x)$ nor $Q(x)$".
+\lstset{frameround = fttt}
+\begin{lstlisting}[frame= trBL]
+(*  6.2.1.5  *)
+``~(!x.(P x) \/ (Q x)) = ?x.(~(P x)) /\ (~(Q x))``;
+\end{lstlisting}
+
+The line above will give us the result like:
+\setcounter{sessioncount}{4}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> # <<HOL message: inventing new type variable names: 'a>>
+val it =
+   ``~(!(x :'a). (P :'a -> bool) x \/ (Q :'a -> bool) x) <=>
+  ?(x :'a). ~P x /\ ~Q x``:
+   term
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\subsection{Question 6.2.1.6}
+In this question, we will attempt to implement a HOL statement that is equivalent to "all people are mortal". We can interprete the statement this way: for all creature, if "it is a human", then "it is mortal". So we have the code below:
+
+\lstset{frameround = fttt}
+\begin{lstlisting}[frame= trBL]
+(*  6.2.1.6  *)
+``!x.(P x ==> M x)``;
+\end{lstlisting}
+
+and the execution result is like:
+\setcounter{sessioncount}{5}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> # # <<HOL message: inventing new type variable names: 'a>>
+val it =
+   ``!(x :'a). (P :'a -> bool) x ==> (M :'a -> bool) x``:
+   term
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\subsection{Question 6.2.1.7}
+In this question, we will use HOL to represent a statement "some people are funny". I thought this is the equivalent meaning as "there exists some $x$, someone who is a people and someone who is funny".
+
+\lstset{frameround = fttt}
+\begin{lstlisting}[frame= trBL]
+(*  6.2.1.7  *)
+``?x.P x /\ Funny x``;
+\end{lstlisting}
+By putting the above region to HOL, we shall see the following result:
+\setcounter{sessioncount}{0}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> <<HOL message: inventing new type variable names: 'a>>
+val it =
+   ``?(x :'a). (P :'a -> bool) x /\ (Funny :'a -> bool) x``:
+   term
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+\chapter{Exercise 7.3.1}
+\label{cha:exercise-7.3.1}
+
+\section{Problem Statement}
+\label{sec:7.3.1-problem-statement}
+In this problem, we will implement a HOL function \emph{andImp2Imp term}, which takes in terms of form $p \land q \supset r$ and returns $p \supset q \supset r$.
+
+\section{Relevant Code}
+\label{sec:7.3.1-relevant-code}
+
+\lstset{frameround = ftttt, framexrightmargin = 0em}
+\begin{lstlisting}[frame = trBL]
+(*Takes in ``p/\q==>r`` and returns ``p==>q==>r``*)
+fun andImp2Imp term = 
+    let
+        val (tmp1, r) = dest_imp term
+        val (p, q) = dest_conj tmp1
+    in
+        mk_imp(p, mk_imp(q,r))
+end;
+
+
+andImp2Imp ``p/\q==>r``;
+
+\end{lstlisting}
+
+\section{Execution Transcripts of Test Cases}
+\label{sec:7.3.1-test-cases}
+If we send the above region to HOL,  we will see result as below:
+\setcounter{sessioncount}{0}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> # # # # # # # val andImp2Imp = fn: term -> term
+> > > val it =
+   ``(p :bool) ==> (q :bool) ==> (r :bool)``:
+   term
+> 
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+\chapter{Exercise 7.3.2}
+\label{cha:exercise-7.3.2}
+
+
+\section{Problem Statement}
+\label{sec:7.3.2-problem-statement}
+In this problem, we will create a function named \emph{impImpAnd term}, which takes in terms of form $p \supset q \supset r$ and returns $p \land q \supset r$. Apart of that, we will also show that this function is just a reverse of the previous function defined in Exercise 7.3.1.
+
+\section{Relevant Code}
+\label{sec:7.3.2-relevant-code}
+
+\lstset{frameround = ftttt, framexrightmargin = 0em}
+\begin{lstlisting}[frame = trBL]
+(*Takes in ``p==>q==>r`` and returns ``p/\q==>r``*)
+
+fun impImpAnd term = 
+    let 
+        val (p, tmp) = dest_imp term
+        val (q, r) = dest_imp tmp
+    in
+        mk_imp(mk_conj(p,q),r)
+end;
+
+
+(*Takes in ``p/\q==>r`` and returns ``p==>q==>r``*)
+fun andImp2Imp term = 
+    let
+        val (tmp1, r) = dest_imp term
+        val (p, q) = dest_conj tmp1
+    in
+        mk_imp(p, mk_imp(q,r))
+end;
+
+
+andImp2Imp ``p/\q==>r``;
+
+impImpAnd(andImp2Imp ``(p/\q)==>r``);
+andImp2Imp(impImpAnd ``p==>q==>r``);
+
+\end{lstlisting}
+
+\section{Execution Transcripts of Test Cases}
+\label{sec:7.3.2-test-cases}
+
+From the above code, we will see transcripts as below. The first \emph{val it} is the result of test case $p \supset q \supset r$. The second and the third \emph{val it} shows that \emph{impImpAnd} and \emph{andImp2Imp} are each others' reverse.
+
+\setcounter{sessioncount}{0}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> val impImpAnd = fn: term -> term
+val andImp2Imp = fn: term -> term
+val it =
+   ``(p :bool) ==> (q :bool) ==> (r :bool)``:
+   term
+val it =
+   ``(p :bool) /\ (q :bool) ==> (r :bool)``:
+   term
+val it =
+   ``(p :bool) ==> (q :bool) ==> (r :bool)``:
+   term
+val it = (): unit
+> 
+*** Emacs/HOL command completed ***
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+
+
+\chapter{Exercise 7.3.3}
+\label{cha:exercise-7.3.3}
+
+\section{Problem Statement}
+\label{sec:7.3.3-problem-statement}
+In this problem, we will implement a HOL function \emph{andImp2Imp term}, which takes in terms of form $\neg \exists x. P(x)$ and returns $\forall x. \neg P(x)$.
+
+\section{Relevant Code}
+\label{sec:7.3.3-relevant-code}
+
+\lstset{frameround = ftttt, framexrightmargin = 0em}
+\begin{lstlisting}[frame = trBL]
+(*takes in ~?x.P x and returns !x.~(P x)*)
+
+fun notExists term = 
+    let 
+        val (x, y)= dest_exists(dest_neg(term))
+    in
+        mk_forall(x, mk_neg y)
+end;
+
+notExists ``~?z.Q z``;
+
+\end{lstlisting}
+
+\section{Execution Transcripts of Test Cases}
+\label{sec:7.3.3-test-cases}
+If we send the above region to HOL,  we will see result as below:
+\setcounter{sessioncount}{0}
+\begin{session}
+\begin{scriptsize}
+\begin{verbatim}
+
+> # # # # # # # val notExists = fn: term -> term
+> > <<HOL message: inventing new type variable names: 'a>>
+val it =
+   ``!(z :'a). ~(Q :'a -> bool) z``:
+   term
+> 
+
+\end{verbatim}
+\end{scriptsize}
+\end{session}
+
+
+
+\appendix{}
+\chapter{Source Code for Exercise 6.2.1}
+\label{appendix:A}
+The following codes are from \emph{ex-6-2-1.sml}
+\lstinputlisting{../ML/ex-6-2-1.sml}
+\chapter{Source Code for Exercise 7.3.1}
+\label{appendix:B}
+The following code is from \emph{ex-7-3-1.sml}
+\lstinputlisting{../ML/ex-7-3-1.sml}
+\chapter{Source Code for Exercise 7.3.2}
+\label{appendix:C}
+The following code is from \emph{ex-7-3-2.sml}
+\lstinputlisting{../ML/ex-7-3-2.sml}
+\chapter{Source Code for Exercise 7.3.3}
+\label{appendix:D}
+The following code is from \emph{ex-7-3-3.sml}
+\lstinputlisting{../ML/ex-7-3-3.sml}
+\end{document}

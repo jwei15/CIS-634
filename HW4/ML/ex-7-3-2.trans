@@ -1,0 +1,16 @@
+> > > > # # # # # # # # # ** types trace now on
+> # # # # # # # # # ** Unicode trace now off
+> val impImpAnd = fn: term -> term
+val andImp2Imp = fn: term -> term
+val it =
+   ``(p :bool) ==> (q :bool) ==> (r :bool)``:
+   term
+val it =
+   ``(p :bool) /\ (q :bool) ==> (r :bool)``:
+   term
+val it =
+   ``(p :bool) ==> (q :bool) ==> (r :bool)``:
+   term
+val it = (): unit
+> 
+*** Emacs/HOL command completed ***

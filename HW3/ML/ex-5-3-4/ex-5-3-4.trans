@@ -1,0 +1,17 @@
+
+---------------------------------------------------------------------
+       HOL-4 [Kananaskis 11 (stdknl, built Sat Aug 19 09:30:06 2017)]
+
+       For introductory HOL help, type: help "hol";
+       To exit type <Control>-D
+---------------------------------------------------------------------
+> > > > val Filter = fn: ('a -> bool) -> 'a list -> 'a list
+val testResults = [1, 2, 3, 4]: int list
+val testResults_5_3_3 = [4]: int list
+val testResults_filter = [1, 2, 3, 4]: int list
+val testResults_filter_5_3_3 = [4]: int list
+val it = (): unit
+> 
+*** Emacs/HOL command completed ***
+
+> 

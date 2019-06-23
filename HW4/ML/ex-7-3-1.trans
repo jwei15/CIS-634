@@ -1,0 +1,7 @@
+> > > > # # # # # # # # # ** types trace now on
+> # # # # # # # # # ** Unicode trace now off
+> # # # # # # # val andImp2Imp = fn: term -> term
+> > > val it =
+   ``(p :bool) ==> (q :bool) ==> (r :bool)``:
+   term
+> > 

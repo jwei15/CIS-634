@@ -1,0 +1,49 @@
+> > > > # # # # # # # # # ** types trace now on
+> # # # # # # # # # ** Unicode trace now off
+> # <<HOL message: inventing new type variable names: 'a, 'b>>
+val it =
+   ``(P :'a -> bool) (x :'a) ==> (Q :'b -> bool) (y :'b)``:
+   term
+> > # val it =
+   ``(P :num -> bool) (x :num) ==> (Q :bool -> bool) (y :bool)``:
+   term
+> <<HOL message: inventing new type variable names: 'a, 'b>>
+val it =
+   ``(P :'a -> bool) (x :'a) ==> (Q :'b -> bool) (y :'b)``:
+   term
+> > # <<HOL message: inventing new type variable names: 'a, 'b>>
+val it =
+   ``!(x :'a) (y :'b). (P :'a -> bool) x ==> (Q :'b -> bool) y``:
+   term
+> > # 
+Type inference failure: the term
+
+(x :num)
+
+on line 12, characters 13-17
+
+can not be constrained to be of type
+
+:'a
+
+unification failure message: ???
+Exception-
+   HOL_ERR
+     {message =
+      "on line 12, characters 13-17:\n\nType inference failure: the term\n\n(x :num)\n\non line 12, characters 13-17\n\ncan not be constrained to be of type\n\n:'a\n\nunification failure message: ???\n",
+      origin_function = "type-analysis", origin_structure = "Preterm"} raised
+> > # <<HOL message: inventing new type variable names: 'a>>
+val it =
+   ``~(!(x :'a). (P :'a -> bool) x \/ (Q :'a -> bool) x) <=>
+  ?(x :'a). ~P x /\ ~Q x``:
+   term
+> > # <<HOL message: inventing new type variable names: 'a>>
+val it =
+   ``!(x :'a). (P :'a -> bool) x ==> (M :'a -> bool) x``:
+   term
+> > # <<HOL message: inventing new type variable names: 'a>>
+val it =
+   ``?(x :'a). (P :'a -> bool) x /\ (Funny :'a -> bool) x``:
+   term
+> 
+*** Emacs/HOL command completed ***
